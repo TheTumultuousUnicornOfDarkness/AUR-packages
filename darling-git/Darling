@@ -1,0 +1,4 @@
+cd darling
+CC=clang CXX=clang++ cmake .
+make
+# make install
