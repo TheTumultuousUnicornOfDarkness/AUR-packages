@@ -1,0 +1,6 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+git clone https://github.com/gnustep/gnustep-make.git
+cd gnustep-make
+CC=clang CXX=clang++ ./configure
+sudo make install

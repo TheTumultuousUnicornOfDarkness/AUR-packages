@@ -1,0 +1,7 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+git clone https://github.com/gnustep/gnustep-base.git
+cd gnustep-base
+OBJCFLAGS=-fblocks CC=clang CXX=clang++ ./configure
+make
+sudo make install

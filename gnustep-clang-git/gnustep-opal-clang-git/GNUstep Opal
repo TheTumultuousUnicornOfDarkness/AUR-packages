@@ -1,0 +1,6 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+git clone https://github.com/gnustep/gnustep-opal.git
+cd gnustep-opal
+OBJCFLAGS=-fblocks CC=clang CXX=clang++ make
+sudo make install

@@ -1,0 +1,11 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+git clone https://github.com/gnustep/gnustep-libobjc2.git
+cd gnustep-libobjc2
+OBJCFLAGS=-fblocks CC=clang CXX=clang++ cmake .
+rm GNUmakefile
+make
+sudo make install
+
+NOTE : conflict between library /usr/lib/libobjc.so which refers to /usr/lib/libobjc.so.4 (gcc-libs) and library /usr/lib/libobjc.so which refers to /usr/lib/libobjc.so.4.6 (gnustep-libobjc2)
+Need help to fix it ! Thanks.
