@@ -1,0 +1,9 @@
+2013-07-02 X0rg
+
+	* 3.51.1-1 :
+	Nouveau mainteneur (ancien : marc[i1]; nouveau : X0rg)
+	Nouveau PKGBUILD
+	Changement de sources (anciennes : the Linux Documentation Project; nouvelles : Traduc.org)
+	Passage de la version 3.03.0 à la 3.51-1 (note : Pacman n'accepte pas de tiret dans la variable pkgver, d'où le 3.51.1 au lieu du 3.51-1)
+	Ajout du fichier man-pages-fr.install
+	Ajout du fichier ChangeLog
