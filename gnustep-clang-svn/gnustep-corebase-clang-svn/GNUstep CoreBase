@@ -1,7 +1,7 @@
 Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
 
-git clone https://github.com/gnustep/gnustep-gui.git
-cd gnustep-gui
+svn co http://svn.gna.org/svn/gnustep/libs/corebase/trunk/ gnustep-corebase
+cd gnustep-corebase
 OBJCFLAGS=-fblocks CC=clang CXX=clang++ ./configure
-make --ignore
-sudo make install --ignore
+make
+sudo make install

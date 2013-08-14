@@ -1,6 +1,6 @@
 Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
 
-git clone https://github.com/gnustep/gnustep-libobjc2.git
+svn co http://svn.gna.org/svn/gnustep/libs/libobjc2/trunk/ gnustep-libobjc2
 cd gnustep-libobjc2
 OBJCFLAGS=-fblocks CC=clang CXX=clang++ cmake .
 rm GNUmakefile

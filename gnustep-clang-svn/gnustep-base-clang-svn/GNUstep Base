@@ -1,6 +1,6 @@
 Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
 
-git clone https://github.com/gnustep/gnustep-base.git
+svn co http://svn.gna.org/svn/gnustep/libs/base/trunk/ gnustep-base
 cd gnustep-base
 OBJCFLAGS=-fblocks CC=clang CXX=clang++ ./configure
 make

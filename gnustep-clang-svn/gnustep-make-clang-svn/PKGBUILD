@@ -1,28 +1,32 @@
 # Maintainer: X0rg
 
-pkgname=gnustep-make-clang-git
-_gitname=gnustep-make
-pkgver=2909.2f9a49e
-pkgrel=2
+pkgname=gnustep-make-clang-svn
+_svnname=gnustep-make
+pkgver=36972
+pkgrel=1
 pkgdesc="The GNUstep make package, using Clang"
 arch=('any')
 url="http://www.gnustep.org/"
 license=('GPL3')
-groups=('gnustep-clang-git')
-depends=('bash')
-makedepends=('git' 'clang')
-conflicts=('gnustep-make' 'gnustep-make-svn')
+groups=('gnustep-clang-svn')
+depends=('libffi')
+makedepends=('svn' 'clang')
+optdepends=('ffcall: alternative for libffi'
+	'texlive-core: add the documentation'
+	'texinfo: add the documentation')
+conflicts=('gnustep-make' 'gnustep-make-clang-git')
+replace=('gnustep-make-clang-git')
 options=('!emptydirs')
-source=('git://github.com/gnustep/gnustep-make.git')
+source=("$_svnname::svn://svn.gna.org/svn/gnustep/tools/make/trunk/")
 md5sums=('SKIP')
 
 pkgver() {
-  cd $_gitname
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+  cd $_svnname
+  svnversion | tr -d [A-z]
 }
 
 prepare() {
-  cd $_gitname
+  cd $_svnname
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Change l'emplacement par défaut des bibliothèques de GNUstep-Clang dans le fichier '/etc/GNUstep/GNUstep.conf'..."
   else
     msg2 "Change the default path of GNUstep libraries in '/etc/GNUstep/GNUstep.conf' file..."
@@ -32,17 +36,37 @@ prepare() {
 }
 
 build() {
-  cd $_gitname
+  cd $_svnname
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Exécute 'configure'..."
   else
     msg2 "Run 'configure'..."
   fi
   CC=clang CXX=clang++ ./configure --prefix=/usr --sysconfdir=/etc/GNUstep
+
+  pacman -Qs texlive-core && pacman -Qs texinfo
+  export test=$?
+  if [[ $test == 0 ]]; then
+	  if [[ $(locale -a | grep french) == "french" ]];then msg2 "Créé la documentation..."
+	  else
+	    msg2 "Make the documentation..."
+	  fi
+	  cd ./Documentation
+	  make
+  fi
 }
 
 package() {
-  cd $_gitname
+  cd $_svnname
   make DESTDIR=$pkgdir install
+
+  if [[ $test == 0 ]]; then
+	  if [[ $(locale -a | grep french) == "french" ]];then msg2 "Installe la documentation..."
+	  else
+	    msg2 "Install the documentation..."
+	  fi
+	  cd ./Documentation
+	  make DESTDIR=$pkgdir install
+  fi
 
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Installe le fichier '/etc/profile.d/GNUstep.sh'..."
   else

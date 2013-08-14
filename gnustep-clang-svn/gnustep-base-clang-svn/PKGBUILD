@@ -1,29 +1,30 @@
 # Maintainer: X0rg
 
-pkgname=gnustep-base-clang-git
-_gitname=gnustep-base
-pkgver=9499.2e10d40
-pkgrel=2
+pkgname=gnustep-base-clang-svn
+_svnname=gnustep-base
+pkgver=36972
+pkgrel=1
 pkgdesc="The GNUstep base package, using Clang"
 arch=('any')
 url="http://www.gnustep.org/"
-license=('GPL3' 'LGPL3')
-groups=('gnustep-clang-git')
+license=('GPL2' 'GPL3' 'LGPL3')
+groups=('gnustep-clang-svn')
 depends=('libffi' 'libxml2' 'libxslt' 'openssl' 'gnutls' 'icu' 'avahi')
-makedepends=('git' 'clang' 'gnustep-libobjc2-clang-git')
+makedepends=('svn' 'clang' 'gnustep-libobjc2-clang-svn')
 optdepends=('iconv: only if you don`t have glibc')
-conflicts=('gnustep-base' 'gnustep-base-svn')
+conflicts=('gnustep-base' 'gnustep-base-svn' 'gnustep-base-clang-git')
+replaces=('gnustep-base-clang-git')
 options=('!emptydirs' '!buildflags')
-source=('git://github.com/gnustep/gnustep-base.git')
+source=("$_svnname::svn://svn.gna.org/svn/gnustep/libs/base/trunk/")
 md5sums=('SKIP')
 
 pkgver() {
-  cd $_gitname
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+  cd $_svnname
+  svnversion | tr -d [A-z]
 }
 
 build() {
-  cd $_gitname
+  cd $_svnname
   source /etc/profile.d/GNUstep.sh
 
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Exécute 'configure'..."
@@ -41,12 +42,17 @@ build() {
 }
 
 # check() {
-#   cd $_gitname
+#   cd $_svnname
 #   make check
 # }
 
 package() {
-  cd $_gitname
+  cd $_svnname
   make DESTDIR="$pkgdir" install
-  chown -R root.root "$pkgdir/"
+
+  if [[ $(locale -a | grep french) == "french" ]];then msg2 "Corrige les permissions..."
+  else
+    msg2 "Fix permissions..."
+  fi
+  chown -Rc root:root "$pkgdir/"
 }

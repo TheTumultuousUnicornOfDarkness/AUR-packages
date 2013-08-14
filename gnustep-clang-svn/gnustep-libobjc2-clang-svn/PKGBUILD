@@ -1,28 +1,29 @@
 # Maintainer: X0rg
 
-pkgname=gnustep-libobjc2-clang-git
-_gitname=gnustep-libobjc2
-pkgver=734.b18be6c
-pkgrel=2
+pkgname=gnustep-libobjc2-clang-svn
+_svnname=gnustep-libobjc2
+pkgver=36972
+pkgrel=1
 pkgdesc="The GNUstep Objective-C runtime is designed as a drop-in replacement for the GCC runtime, using Clang"
 arch=('any')
 url="http://www.gnustep.org/"
 license=('custom')
-groups=('gnustep-clang-git')
+groups=('gnustep-clang-svn')
 depends=('gcc-libs')
-makedepends=('git' 'clang' 'gnustep-make-clang-git')
-conflicts=('gnustep-libobjc2-git')
+makedepends=('svn' 'clang' 'gnustep-make-clang-svn')
+conflicts=('gnustep-libobjc2-git' 'gnustep-libobjc2-clang-git')
+replace=('gnustep-libobjc2-clang-git')
 options=('!buildflags')
-source=('git://github.com/gnustep/gnustep-libobjc2.git')
+source=("$_svnname::svn://svn.gna.org/svn/gnustep/libs/libobjc2/trunk/")
 md5sums=('SKIP')
 
 pkgver() {
-  cd $_gitname
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+  cd $_svnname
+  svnversion | tr -d [A-z]
 }
 
 prepare() {
-  cd $_gitname
+  cd $_svnname
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Créé le dossier 'build'..."
   else
     msg2 "Create 'build' directory..."
@@ -37,7 +38,7 @@ prepare() {
 }
 
 build() {
-  cd $_gitname/build
+  cd $_svnname/build
 
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Exécute 'cmake'..."
   else
@@ -53,12 +54,12 @@ build() {
 }
 
 # check() {
-#   cd $_gitname/build
+#   cd $_svnname/build
 #   make test
 # }
 
 package() {
-  cd $_gitname/build
+  cd $_svnname/build
   make DESTDIR="$pkgdir" install
 
   cd ..

@@ -1,28 +1,28 @@
 # Maintainer: X0rg
 
-pkgname=gnustep-corebase-clang-git
-_gitname=gnustep-corebase
-pkgver=370.b9be22c
-pkgrel=3
+pkgname=gnustep-corebase-clang-svn
+_svnname=gnustep-corebase
+pkgver=36972
+pkgrel=1
 pkgdesc="The GNUstep CoreBase Library is a library of general-purpose, non-graphical C objects, using Clang."
 arch=('any')
 url="http://www.gnustep.org/"
 license=('GPL3' 'LGPL2.1')
-groups=('gnustep-clang-git')
+groups=('gnustep-clang-svn')
 depends=('icu')
-makedepends=('git' 'clang' 'gnustep-make-clang-git' 'gnustep-base-clang-git')
-conflicts=('gnustep-corebase-git')
-#source=('git://github.com/gnustep/gnustep-corebase.git') # The original GNUstep CoreBase Library
-source=('git://github.com/LubosD/gnustep-corebase.git') # GNUstep CoreBase Library, designed for the Darling Project
+makedepends=('svn' 'clang' 'gnustep-base-clang-svn')
+conflicts=('gnustep-corebase-git' 'gnustep-corebase-clang-git')
+replace=('gnustep-corebase-clang-git')
+source=("$_svnname::svn://svn.gna.org/svn/gnustep/libs/corebase/trunk/")
 md5sums=('SKIP')
 
 pkgver() {
-  cd $_gitname
-  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+  cd $_svnname
+  svnversion | tr -d [A-z]
 }
 
 build() {
-  cd $_gitname
+  cd $_svnname
   source /etc/profile.d/GNUstep.sh
 
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Exécute 'configure'..."
@@ -39,11 +39,11 @@ build() {
 }
 
 # check() {
-#   cd $_gitname
+#   cd $_svnname
 #   make check
 # }
 
 package() {
-  cd $_gitname
+  cd $_svnname
   make DESTDIR="$pkgdir" install
 }
