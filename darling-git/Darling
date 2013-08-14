@@ -1,3 +1,5 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build#Ordinary_Build
+
 cd darling
 CC=clang CXX=clang++ cmake .
 make
