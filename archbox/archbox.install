@@ -1,0 +1,11 @@
+post_install() {
+	echo "ArchBox-theme a bien été installé !"
+}
+
+post_upgrade() {
+	echo "ArchBox-theme a été mis à jour !"
+}
+
+post_remove() {
+	echo "ArchBox-theme a bien été supprimé !"
+}

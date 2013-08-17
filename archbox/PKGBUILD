@@ -1,0 +1,24 @@
+# Maintainer: Your Name <youremail@domain.com>
+
+pkgname=archbox-theme
+pkgver=0.1
+pkgrel=1
+pkgdesc="A standard theme designed for ArchBox"
+arch=('any')
+url="http://forums.archlinux.fr/topic14064.html"
+license=('custom')
+groups=('archbox')
+depends=('xfce4-panel' 'xfconf' 'xfce4-clipman-plugin' 'orage' 'xfce4-wavelan-plugin' 'xfce4-mixer' 'gstreamer0.10-base-plugins' 'faenza-icon-theme' 'elementary-gtk-theme')
+options=('!emptydirs')
+install=archbox.install
+changelog=ChangeLog
+source=('archbox-config.tar.xz')
+md5sums=('24499060a8a0420b9be0a8255145af5a')
+
+package() {
+	mkdir -pv "$pkgdir/etc/skel/.config" "$pkgdir/usr/share"
+	mv -v "$srcdir/xfce4/" "$pkgdir/etc/skel/.config/"
+	mv -v "$srcdir/archbox/" "$pkgdir/usr/share/"
+	mv -v "$srcdir/gtkrc-2.0" "$pkgdir/etc/skel/.gtkrc-2.0"
+	#chmod -Rv 644 "$pkgdir/"
+}
