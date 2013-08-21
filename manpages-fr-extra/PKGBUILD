@@ -44,7 +44,7 @@ package() {
 	for i in `cat "/tmp/$pkgname-uniq"`; do
 		echo "$i" > "/tmp/$pkgname-i"
 		sed 's/\./2./g' "/tmp/$pkgname-i" > "/tmp/$pkgname-sed2"
-		mv -v "$i.gz" `cat "/tmp/$pkgname-sed2"`
+		mv -v "$i.gz" `cat "/tmp/$pkgname-sed2"`.gz
 	done
 
 	msg2 "Installe la licence..."
