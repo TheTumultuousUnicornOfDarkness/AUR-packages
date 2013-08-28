@@ -16,7 +16,7 @@ options=('!emptydirs' 'purge')
 source=("$_svnname::svn://svn.gna.org/svn/gnustep/tools/make/trunk/"
 	'arch')
 md5sums=('SKIP'
-         '847a0b2a527a380af39567ec9ebc0c36')
+         'e52d7bd7d1c604f6b3640c09bcd9d093')
 
 pkgver() {
   cd $_svnname
