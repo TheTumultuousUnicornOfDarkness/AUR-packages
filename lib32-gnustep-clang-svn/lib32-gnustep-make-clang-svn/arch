@@ -23,7 +23,7 @@
 # /usr/local/lib to /etc/ld.so.conf (or equivalent for your Unix) if
 # they want to use the LOCAL domain.  To use gnustep-make in this
 # environment, use 'export
-# GNUSTEP_MAKEFILES=/usr/share/GNUstep-x86/Makefiles'
+# GNUSTEP_MAKEFILES=/usr/share/GNUstep/Makefiles'
 
 # By default, we install into /usr, but this can be overridden
 # by using ./configure --prefix=xxx when configuring.

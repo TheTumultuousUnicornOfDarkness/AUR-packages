@@ -25,7 +25,6 @@ pkgver() {
 
 prepare() {
   cd $_svnname
-
   if [[ $(locale -a | grep french) == "french" ]];then msg2 "Change l'emplacement par défaut des bibliothèques de GNUstep-Clang dans le fichier '/opt/GNUstep32/etc/GNUstep/GNUstep.conf'..."
   else
     msg2 "Change the default path of GNUstep libraries in '/etc/GNUstep/GNUstep.conf' file..."
@@ -55,6 +54,5 @@ package() {
     msg2 "Install '/etc/profile.d/GNUstep32.sh' file..."
   fi
   install -v -D -m755 $pkgdir/opt/GNUstep32/share/GNUstep/Makefiles/GNUstep.sh $pkgdir/etc/profile.d/GNUstep32.sh
-
   PURGE_TARGETS=(*.gz)
 }
