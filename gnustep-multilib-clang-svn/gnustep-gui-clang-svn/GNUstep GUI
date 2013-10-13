@@ -1,0 +1,7 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+svn co http://svn.gna.org/svn/gnustep/libs/gui/trunk/ gnustep-gui
+cd gnustep-gui
+OBJCFLAGS=-fblocks CC=clang CXX=clang++ ./configure
+make
+sudo make install

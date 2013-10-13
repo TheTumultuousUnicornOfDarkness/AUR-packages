@@ -1,0 +1,6 @@
+Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
+
+svn co http://svn.gna.org/svn/gnustep/tools/make/trunk/ gnustep-make
+cd gnustep-make
+CC=clang CXX=clang++ ./configure
+sudo make install
