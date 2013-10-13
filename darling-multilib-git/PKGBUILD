@@ -8,9 +8,9 @@ pkgdesc="A Wine-like emulation layer that enables you to run Darwin/OS X apps on
 arch=('x86_64')
 url="http://darling.dolezel.info/en/Darling"
 license=('GPL3')
-depends=('cairo'	'libbsd'	'systemd'	'lcms'		'bzip2'		'util-linux'	   'ncurses'	   'libxrandr'	     'ffmpeg'	'libkqueue' \
-	'lib32-cairo'	'lib32-libbsd'	'lib32-systemd' 'lib32-lcms'	'lib32-bzip2'	'lib32-util-linux' 'lib32-ncurses' 'lib32-libxrandr' 'lib32-ffmpeg' \
-	'gcc-libs-multilib' 'gnustep-gui-multilib-clang-svn' 'gnustep-corebase-multilib-clang-svn')
+depends=('cairo'      'libbsd'       'systemd'       'lcms'       'bzip2'       'util-linux'       'ncurses'       'libxrandr'       'ffmpeg'       'libkqueue' \
+         'lib32-cairo' 'lib32-libbsd' 'lib32-systemd' 'lib32-lcms' 'lib32-bzip2' 'lib32-util-linux' 'lib32-ncurses' 'lib32-libxrandr' 'lib32-ffmpeg' \
+         'gcc-libs-multilib' 'gnustep-gui-multilib-clang-svn' 'gnustep-corebase-multilib-clang-svn')
 makedepends=('git' 'clang>=3.1' 'nasm' 'yasm')
 optdepends=('dmg2dir-git: extract OS X application from .dmg file')
 provides=('darling-git')

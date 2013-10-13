@@ -9,8 +9,8 @@ arch=('x86_64')
 url="http://www.gnustep.org/"
 license=('GPL3' 'LGPL3')
 groups=('gnustep-multilib-clang-svn')
-depends=('libtiff'	'libjpeg-turbo'		'libpng'	'giflib'	'libcups'	'aspell' \
-	'lib32-libtiff' 'lib32-libjpeg-turbo'	'lib32-libpng'	'lib32-giflib'	'lib32-libcups'	'lib32-aspell' 'gnustep-base-multilib-clang-svn')
+depends=('libtiff'       'libjpeg-turbo'       'libpng'       'giflib'       'libcups'       'aspell' \
+         'lib32-libtiff' 'lib32-libjpeg-turbo' 'lib32-libpng' 'lib32-giflib' 'lib32-libcups' 'lib32-aspell' 'gnustep-base-multilib-clang-svn')
 makedepends=('svn' 'clang' 'gnustep-make-multilib-clang-svn' 'gnustep-base-multilib-clang-svn' 'audiofile' 'lib32-audiofile' 'portaudio>=19' 'lib32-portaudio>=19')
 conflicts=('gnustep-gui' 'gnustep-gui-svn' 'gnustep-gui-clang-svn' 'lib32-gnustep-gui-clang-svn')
 options=('!emptydirs')

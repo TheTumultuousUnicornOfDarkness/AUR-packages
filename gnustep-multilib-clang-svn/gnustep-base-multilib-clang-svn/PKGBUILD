@@ -9,8 +9,8 @@ arch=('x86_64')
 url="http://www.gnustep.org/"
 license=('GPL2' 'GPL3' 'LGPL3')
 groups=('gnustep-multilib-clang-svn')
-depends=('libffi'	'libxml2'	'libxslt'	'openssl'	'gnutls'	'icu'		'avahi'		'xz' \
-	'lib32-libffi'	'lib32-libxml2' 'lib32-libxslt'	'lib32-openssl' 'lib32-gnutls'	'lib32-icu'	'lib32-avahi'	'lib32-xz' 'gnustep-libobjc2-multilib-clang-svn')
+depends=('libffi'       'libxml2'       'libxslt'       'openssl'       'gnutls'        'icu'       'avahi'       'xz' \
+         'lib32-libffi' 'lib32-libxml2' 'lib32-libxslt' 'lib32-openssl' 'lib32-gnutls'  'lib32-icu' 'lib32-avahi' 'lib32-xz' 'gnustep-libobjc2-multilib-clang-svn')
 makedepends=('svn' 'clang' 'gnustep-make-multilib-clang-svn' 'lib32-gmp' 'lib32-libgcrypt' 'lib32-zlib' 'lib32-glibc')
 optdepends=('iconv: only if you don`t have glibc')
 provide=('gnustep-base-clang-svn')
