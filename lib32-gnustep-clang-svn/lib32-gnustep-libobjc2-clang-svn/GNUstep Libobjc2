@@ -1,6 +1,0 @@
-Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
-
-git clean -fdx
-OBJCFLAGS="-fblocks" CFLAGS=-m32 ASMFLAGS=-m32 CC=clang CXX=clang++ cmake . -DGNUSTEP_INSTALL_TYPE=NONE -DLIB_INSTALL_PATH=/usr/lib/i386-linux-gnu
-make
-sudo make install

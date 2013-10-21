@@ -1,6 +1,0 @@
-Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
-
-sudo apt-get install libffi6:i386 libxml2:i386 libgnutls26:i386
-sudo ln -s libffi.so.6 /usr/lib/i386-linux-gnu/libffi.so
-sudo ln -s libxml2.so.2 /usr/lib/i386-linux-gnu/libxml2.so
-sudo ln -s libgcrypt.so.11 /lib/i386-linux-gnu/libgcrypt.so
