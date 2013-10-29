@@ -2,7 +2,7 @@
 
 pkgname=memtest86-efi
 pkgver=5b7
-pkgrel=1
+pkgrel=2
 pkgdesc="A free, thorough, stand alone memory test as an EFI application."
 arch=('i686' 'x86_64')
 url="http://www.memtest86.com"
