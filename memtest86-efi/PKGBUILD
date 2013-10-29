@@ -13,7 +13,7 @@ source=("$url/downloads/beta/${pkgname/-efi/}-iso.gz"
 	"$pkgname"
 	"$pkgname.conf")
 md5sums=('2b35eb35ff27d5e24ef74efb237ec663'
-         '2f1b3f973e5c57b1aa53965ed6afa116'
+         '3f3b53d38aafcbe024ccd8a7d6478a52'
          '488ef0f904318a7fce4b7a292597019b')
 
 prepare() {
