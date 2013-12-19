@@ -1,0 +1,133 @@
+# Maintainer: X0rg
+# Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Brad Fanella <bradfanella@archlinux.us>
+# Contributor: [vEX] <niechift.dot.vex.at.gmail.dot.com>
+# Contributor: Zeqadious <zeqadious.at.gmail.dot.com>
+# Contributor: BlackIkeEagle < ike DOT devolder AT gmail DOT com >
+
+_prefix=/usr
+
+_projectupper=OpenELEC
+_project=openelec
+_pkgbasename=xbmc
+pkgname=$_pkgbasename-$_project
+pkgver=13.alpha
+pkgrel=1
+pkgdesc="A software media player and entertainment hub for digital media originally designed for OpenELEC"
+arch=('any' )
+url="http://www.$_project.tv"
+license=('GPL' 'custom')
+depends=('hicolor-icon-theme' 'ffmpeg' 'taglib' 'mesa' 'libxrandr' 'smbclient' 'libssh' 'libmicrohttpd' 'libcdio' 'libmariadbclient' 'tinyxml' 'yajl' 'glew' 'bluez-libs' 'lzo2')
+makedepends=('boost' 'lzo' 'pcre' 'swig' 'doxygen' 'java-environment' 'enca' 'fribidi' 'libjpeg-turbo' 'libpng' 'libtiff' 'jasper' 'libsamplerate' 'libvdpau' 'libcec' 'libxt' 'libxmu' 'libgpg-error' 'libmpeg2' 'libmad' 'sdl_image' 'libnfs' 'afpfs-ng' 'gperf' 'unzip' 'zip' 'nasm')
+optdepends=('pulseaudio: pulseaudio support'
+	    'lirc: remote controller support'
+	    'udisks: automount external drives'
+	    'upower: used to trigger suspend functionality'
+	    'unrar: access compressed files without unpacking them'
+	    'xorg-xinit: autostart xbmc')
+install="$pkgname.install"
+options=('!buildflags')
+source=("git://github.com/$_projectupper/$_projectupper.tv.git"
+	"$_pkgbasename.service"
+	"polkit.rules")
+md5sums=('SKIP'
+         '8312d6d4ac5d7c3d9eed40ab08a17d3b'
+         'd4cbb6609c8e7b713c714241f529000e')
+
+prepare() {
+  cd "$srcdir/$_projectupper.tv"
+
+  # Get XBMC modified by OpenELEC
+  "./scripts/unpack" $_pkgbasename
+  "./scripts/unpack" $_pkgbasename-theme-Confluence
+
+  # Move XBMC to srcdir
+  _build_rep=$(find . -name build.$_projectupper*)
+  mv ./$(find ./$_build_rep -name $_pkgbasename-$pkgver*) "$srcdir/$_pkgbasename"
+  mv ./$(find ./$_build_rep -name $_pkgbasename-theme-Confluence-$pkgver*) "$srcdir/$_pkgbasename/addons/skin.confluence"
+
+
+  cd "$srcdir/$_pkgbasename"
+
+ # Patch for Samba
+  sed -i -e 's:#include <libsmbclient.h>:#include <samba-4.0/libsmbclient.h>:' ./xbmc/filesystem/{SmbFile,SMBDirectory}.cpp
+}
+
+build() {
+  cd "$srcdir/$_pkgbasename"
+
+  # Bootstrapping XBMC
+  ./bootstrap
+
+  # Configuring XBMC
+  export PYTHON_VERSION=2  # external python v2
+  CXXFLAGS="-O" ./configure --prefix=$_prefix --exec-prefix=$_prefix \
+	--disable-debug \
+	--disable-optimizations \
+	--enable-gl \
+	--enable-sdl \
+	--enable-vaapi \
+	--enable-vdpau \
+	--disable-vtbdecoder \
+	--disable-tegra \
+	--disable-profiling \
+	--enable-joystick \
+	--enable-libcec \
+	--enable-udev \
+	--disable-libusb \
+	--enable-rsxs \
+	--enable-projectm \
+	--enable-x11 \
+	--enable-xrandr \
+	--disable-ccache \
+	--enable-alsa \
+	--disable-pulse \
+	--enable-rtmp \
+	--enable-samba \
+	--enable-nfs \
+	--enable-afpclient \
+	--disable-libcap \
+	--enable-ffmpeg-libvorbis \
+	--disable-libmp3lame \
+	--enable-dvdcss \
+	--disable-mid \
+	--disable-hal \
+	--enable-avahi \
+	--enable-ssh \
+	--enable-airplay \
+	--disable-asap-codec \
+	--enable-webserver \
+	--enable-optical-drive \
+	--enable-libbluray \
+	--enable-texturepacker \
+	--disable-external-libraries \
+	--enable-external-ffmpeg
+
+  # Now (finally) build
+  make
+}
+
+package() {
+  cd "$srcdir/$_pkgbasename"
+
+  # Running make install
+  make DESTDIR="$pkgdir" install
+
+  # Run with Python 2 instead of Python 3
+  sed -i -e 's/python/python2/g' "$pkgdir$_prefix/bin/xbmc"
+  sed -i -e 's/\#\!\/usr\/bin\/python/\#\!\/usr\/bin\/python2/g' "$pkgdir$_prefix/share/xbmc/addons/service.xbmc.versioncheck/service.py"
+
+  # Tools
+  install -D -m 0755 "$srcdir/$_pkgbasename/$_pkgbasename-xrandr" "$pkgdir$_prefix/share/$_pkgbasename/$_pkgbasename-xrandr"
+
+  # Licenses
+  install -d -m 0755 "$pkgdir$_prefix/share/licenses/$pkgname"
+  for licensef in LICENSE.GPL copying.txt; do
+    mv "$pkgdir$_prefix/share/doc/$_pkgbasename/$licensef" "$pkgdir$_prefix/share/licenses/$pkgname"
+  done
+
+  # ArchLinux
+  install -Dm0644 $srcdir/$_pkgbasename.service $pkgdir$_prefix/lib/systemd/system/$_pkgbasename.service
+  install -Dm0644 $srcdir/polkit.rules $pkgdir/etc/polkit-1/rules.d/10-$_pkgbasename.rules
+  chmod 0700 $pkgdir/etc/polkit-1/rules.d/
+}
