@@ -12,12 +12,12 @@ _project=openelec
 _pkgbasename=xbmc
 pkgname=$_pkgbasename-$_project
 pkgver=13.alpha
-pkgrel=1
+pkgrel=2
 pkgdesc="A software media player and entertainment hub for digital media originally designed for OpenELEC"
 arch=('any' )
 url="http://www.$_project.tv"
 license=('GPL' 'custom')
-depends=('hicolor-icon-theme' 'ffmpeg' 'taglib' 'mesa' 'libxrandr' 'smbclient' 'libssh' 'libmicrohttpd' 'libcdio' 'libmariadbclient' 'tinyxml' 'yajl' 'glew' 'bluez-libs' 'lzo2')
+depends=('hicolor-icon-theme' 'ffmpeg' 'taglib' 'mesa' 'libxrandr' 'smbclient' 'libcdio' 'tinyxml' 'yajl' 'glew' 'bluez-libs' 'lzo2')
 makedepends=('boost' 'lzo' 'pcre' 'swig' 'doxygen' 'java-environment' 'enca' 'fribidi' 'libjpeg-turbo' 'libpng' 'libtiff' 'jasper' 'libsamplerate' 'libvdpau' 'libcec' 'libxt' 'libxmu' 'libgpg-error' 'libmpeg2' 'libmad' 'sdl_image' 'libnfs' 'afpfs-ng' 'gperf' 'unzip' 'zip' 'nasm')
 optdepends=('pulseaudio: pulseaudio support'
 	    'lirc: remote controller support'
@@ -68,9 +68,11 @@ build() {
 	--enable-sdl \
 	--enable-vaapi \
 	--enable-vdpau \
+	--disable-mysql \
 	--disable-vtbdecoder \
 	--disable-tegra \
 	--disable-profiling \
+	--disable-fishbmc \
 	--enable-joystick \
 	--enable-libcec \
 	--enable-udev \
@@ -93,12 +95,14 @@ build() {
 	--disable-mid \
 	--disable-hal \
 	--enable-avahi \
-	--enable-ssh \
-	--enable-airplay \
+	--disable-upnp \
+	--disable-ssh \
+	--disable-airplay \
+	--disable-airtunes \
 	--disable-asap-codec \
-	--enable-webserver \
+	--disable-webserver \
 	--enable-optical-drive \
-	--enable-libbluray \
+	--disable-libbluray \
 	--enable-texturepacker \
 	--disable-external-libraries \
 	--enable-external-ffmpeg
