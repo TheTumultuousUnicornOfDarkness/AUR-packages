@@ -6,7 +6,7 @@ pkgver=594.6407eba
 pkgrel=5
 pkgdesc="A Wine-like emulation layer that enables you to run Darwin/OS X apps on Linux for multilib"
 arch=('x86_64')
-url="http://darling.dolezel.info/en/Darling"
+url="http://www.darlinghq.org"
 license=('GPL3')
 depends=('cairo'       'libbsd'       'systemd'       'lcms'       'bzip2'       'util-linux'       'ncurses'       'libxrandr'       'ffmpeg'       'libkqueue' \
          'lib32-cairo' 'lib32-libbsd' 'lib32-systemd' 'lib32-lcms' 'lib32-bzip2' 'lib32-util-linux' 'lib32-ncurses' 'lib32-libxrandr' 'lib32-ffmpeg' \
