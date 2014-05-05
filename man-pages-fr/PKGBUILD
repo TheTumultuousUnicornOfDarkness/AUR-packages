@@ -24,9 +24,9 @@ build() {
 	cd "$srcdir/fr"
 
 	msg2 "Renomme certaines pages de manuel françaises pour éviter des conflits..."
-	fichiersignores=$(pacman -Qql $pkgname | grep ".gz" | cut -d/ -f6- 2> /dev/null)
+	fichiersignores=$(pacman -Qql $pkgname 2> /dev/null | grep ".gz" | cut -d/ -f6-)
 	for fichierteste in man*/*; do
-		( [[ -f /usr/share/man/fr/$fichierteste.gz ]] && ! echo $fichiersignores | grep -q $fichierteste ) && \
+		( [[ -f /usr/share/man/fr/$fichierteste.gz ]] && ! echo $fichiersignores | grep -qF $fichierteste ) && \
 		( mv -v $fichierteste $(echo $fichierteste | sed "s|\.|2.|") || return 1 )
 	done
 
