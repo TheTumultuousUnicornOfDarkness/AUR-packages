@@ -36,6 +36,7 @@ for pkg in $@; do
 		gnustep-gui-multilib-clang-svn)		upload devel;;
 		gnustep-corebase-multilib-clang-svn)	upload devel;;
 		libdispatch-clang-git)			upload lib;;
+		libpthread_workqueue-libpthread)	upload lib;;
 		man-pages-fr)				upload system;;
 		manpages-fr-extra)			upload system;;
 		memtest86-efi)				upload system;;
