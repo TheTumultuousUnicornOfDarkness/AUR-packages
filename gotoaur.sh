@@ -24,7 +24,7 @@ for pkg in $@; do
 	case $pkg in
 		darling-git)				upload emulators;;
 		darling-multilib-git)			upload emulators;;
-		dmg2dir-git)				upload system;;
+		dmg2dir)				upload system;;
 		gnustep-make-clang-svn)			upload devel;;
 		gnustep-libobjc2-clang-svn)		upload devel;;
 		gnustep-base-clang-svn)			upload devel;;
