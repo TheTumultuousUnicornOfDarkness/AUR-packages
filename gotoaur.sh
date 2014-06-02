@@ -14,7 +14,7 @@ mkdir -p /tmp/srcdest
 
 for pkg in $@; do
 	cd $(find `dirname $0` -name $pkg)
-	makepkg -Sf && \
+	mkaurball -f && \
 	mv $pkg-*.src.tar.gz /tmp/srcdest
 done
 
