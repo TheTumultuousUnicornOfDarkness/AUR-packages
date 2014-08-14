@@ -3,7 +3,7 @@
 # Contributor: Diogo Leal <estranho@diogoleal.com>
 
 pkgname=psensor
-pkgver=1.0.3
+pkgver=1.0.4
 pkgrel=1
 pkgdesc="A graphical hardware temperature monitor for Linux."
 arch=('i686' 'x86_64')
