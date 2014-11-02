@@ -23,6 +23,7 @@ echo "Password: "
 read -s passwd
 for pkg in $@; do
 	case $pkg in
+		cpu-x)					upload system;;
 		darling-git)				upload emulators;;
 		darling-multilib-git)			upload emulators;;
 		dmg2dir)				upload system;;
