@@ -14,7 +14,7 @@ mkdir -p /tmp/srcdest
 
 for pkg in $@; do
 	cd $(find `dirname $0` -name $pkg)
-	updpkgsums
+	[[ $SUM != 0 ]] && updpkgsums
 	mkaurball -f && \
 	mv $pkg-*.src.tar.gz /tmp/srcdest
 done
