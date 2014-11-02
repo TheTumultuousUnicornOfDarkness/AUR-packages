@@ -26,6 +26,7 @@ for pkg in $@; do
 		darling-git)				upload emulators;;
 		darling-multilib-git)			upload emulators;;
 		dmg2dir)				upload system;;
+		frozenway)				upload system;;
 		gnustep-make-clang-svn)			upload devel;;
 		gnustep-libobjc2-clang-svn)		upload devel;;
 		gnustep-base-clang-svn)			upload devel;;
