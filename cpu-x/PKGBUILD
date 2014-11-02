@@ -3,12 +3,13 @@
 _realname=CPU-X
 pkgname=cpu-x
 pkgver=1.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A Free software that gathers information on CPU & motherboard (like CPU-Z)"
 arch=('i686' 'x86_64')
 url="https://github.com/X0rg/CPU-X"
 license=('GPL3')
 depends=('gtk3' 'ncurses' 'libcpuid-git')
+makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 md5sums=('f73b68ed75ca6288e883a52e18d84fff')
 
