@@ -10,8 +10,8 @@ url="http://www.frozenway.com"
 license=('custom')
 depends=('qt4' 'lzo')
 makedepends=('wget')
-backup=(opt/$_realname/etc/auth.key
-	opt/$_realname/etc/frozenway.crt)
+backup=(opt/$pkgname/etc/auth.key
+	opt/$pkgname/etc/frozenway.crt)
 
 if [[ $CARCH == 'i686' ]]; then
 	source=("$pkgname-$pkgver-$CARCH.tar.gz::$url/index.php?module=download&step=get_frozenway&version=$pkgver&system=linux_i386")
