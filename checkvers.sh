@@ -13,6 +13,8 @@ ce="\033[0m"
 cpt=0
 [[ $1 == "-q" ]] && quiet=1
 
+cd `dirname $0`
+
 # Script output: start
 [[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
 
@@ -76,9 +78,9 @@ showver psensor $newver
 
 
 # Script output: end
-[[ $cpt == 0 ]] && col=$cg || col=$cr
 if [[ $quiet ]]; then
-	[[ $cpt > 0 ]] && echo -e "\nAUR : Out-of-date packages : $col$cpt$ce"
+	echo -e "$cpt"
 else
+	[[ $cpt == 0 ]] && col=$cg || col=$cr
 	echo -e "\nOut-of-date packages : $col$cpt$ce"
 fi
