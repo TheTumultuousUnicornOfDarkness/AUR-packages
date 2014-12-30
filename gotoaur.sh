@@ -14,9 +14,15 @@ mkdir -p /tmp/srcdest
 
 for pkg in $@; do
 	cd $(find `dirname $0` -name $pkg)
+	ls -1 > /tmp/fileslist
+
 	[[ $SUM != 0 ]] && updpkgsums
-	mkaurball -f && \
+	makepkg --source && \
 	mv $pkg-*.src.tar.gz /tmp/srcdest
+
+	ls -1 >> /tmp/fileslist
+	sort /tmp/fileslist | uniq -u | xargs rm
+	cd $OLDPWD
 done
 
 echo "Password: "
