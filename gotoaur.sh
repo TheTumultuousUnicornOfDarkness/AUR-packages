@@ -16,7 +16,7 @@ for pkg in $@; do
 	cd $(find `dirname $0` -name $pkg)
 	ls -1 > /tmp/fileslist
 
-	[[ $SUM != 0 ]] && updpkgsums
+	[[ $SUM != 0 ]] && updpkgsums && chmod 644 *
 	makepkg --source && \
 	mv $pkg-*.src.tar.gz /tmp/srcdest
 
@@ -44,6 +44,9 @@ for pkg in $@; do
 		gnustep-base-multilib-clang-svn)	upload devel;;
 		gnustep-gui-multilib-clang-svn)		upload devel;;
 		gnustep-corebase-multilib-clang-svn)	upload devel;;
+		lib32-libdispatch-clang-git)		upload lib;;
+		lib32-libkqueue)			upload lib;;
+		lib32-libpthread_workqueue-git)		upload lib;;
 		libdispatch-clang-git)			upload lib;;
 		libpthread_workqueue-libpthread)	upload lib;;
 		man-pages-fr)				upload system;;
