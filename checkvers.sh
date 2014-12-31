@@ -43,6 +43,11 @@ newver=$(elinks -dump -no-references "http://www.frozenway.com/index.php?module=
 	| grep "]FrozenWay" --color=never | awk '{ print $2 }' | head -n1)
 showver frozenway $newver
 
+# Lib32-LibKqueue
+newver=$(elinks -dump -no-references "https://github.com/mheily/libkqueue/tags" | grep "]v" --color=never \
+	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
+showver lib32-libkqueue $newver
+
 # LibPthread Workqueue
 www=$(elinks -dump -no-references "http://sourceforge.net/projects/libpwq/files/" \
 	| grep "]libpthread_workqueue-" --color=never | cut -d "-" -f2 | awk '{ print $1 }' | head -n1)
