@@ -7,7 +7,7 @@
 ############################################################################
 
 upload() {
-	burp -u X0rg -p $passwd -c $1 /tmp/srcdest/$pkg-*.src.tar.gz
+	burp -u Xorg -p $passwd -c $1 /tmp/srcdest/$pkg-*.src.tar.gz
 }
 
 mkdir -p /tmp/srcdest
