@@ -3,12 +3,12 @@
 _realname=FrozenWay
 pkgname=frozenway
 pkgver=1.6.5
-pkgrel=3
+pkgrel=4
 pkgdesc="A project that gives those involved the ability to pass through any firewall or proxy"
 arch=('i686' 'x86_64')
 url="http://www.frozenway.com"
 license=('custom')
-depends=('openssl' 'lzo' 'qt4')
+depends=('openssl' 'lzo' 'qt4' 'net-tools')
 makedepends=('wget')
 backup=(opt/$pkgname/etc/auth.key
 	opt/$pkgname/etc/frozenway.crt)
