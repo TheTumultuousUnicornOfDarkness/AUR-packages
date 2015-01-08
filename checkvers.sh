@@ -75,6 +75,12 @@ newver=$(echo $www | grep "GZIP compressed docume" --color=never | grep "iso-" -
 	| awk '{ print $2 }' | cut -d "]" -f2 | cut -c15-19 | head -n1)
 showver memtest86-efi-beta $newver
 
+# Python2-MMKeys
+www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
+	| grep "sonata" | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" | head -n1)
+newver=${www%%".tar.gz"}
+showver python2-mmkeys $newver
+
 # Psensor
 www=$(elinks -dump -no-references "http://wpitchoune.net/psensor/files/")
 www=$(echo $www | awk '{ print $2 }' | grep "psensor-" --color=never | cut -c14- | tail -n1)
