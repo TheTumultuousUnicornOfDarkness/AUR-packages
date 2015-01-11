@@ -77,7 +77,7 @@ showver memtest86-efi-beta $newver
 
 # Python2-MMKeys
 www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
-	| grep "sonata" | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" | head -n1)
+	| grep "sonata" --color=never | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" --color=never | head -n1)
 newver=${www%%".tar.gz"}
 showver python2-mmkeys $newver
 
