@@ -28,10 +28,6 @@ showver() {
 
 # Check versions
 
-# Compiz 0.8
-newver=$(elinks -dump -no-references "http://www.northfield.ws/projects/compiz/releases/" | grep "0.8" --color=never \
-	| awk '{ print $2 }' | cut -d "]" -f2 | cut -d "/" -f1
-
 # CPU-X
 newver=$(elinks -dump -no-references "https://github.com/X0rg/CPU-X/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
@@ -81,7 +77,7 @@ showver memtest86-efi-beta $newver
 
 # Python2-MMKeys
 www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
-	| grep "sonata" | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" --color=never | head -n1)
+	| grep "sonata" | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" | head -n1)
 newver=${www%%".tar.gz"}
 showver python2-mmkeys $newver
 
