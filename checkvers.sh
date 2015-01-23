@@ -48,12 +48,6 @@ newver=$(elinks -dump -no-references "https://github.com/mheily/libkqueue/tags" 
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver lib32-libkqueue $newver
 
-# LibPthread Workqueue
-www=$(elinks -dump -no-references "http://sourceforge.net/projects/libpwq/files/" \
-	| grep "]libpthread_workqueue-" --color=never | cut -d "-" -f2 | awk '{ print $1 }' | head -n1)
-newver=${www%%".tar.gz"}
-showver libpthread_workqueue-libpthread $newver
-
 # Man-Pages-FR
 newver=$(elinks -dump -no-references "https://alioth.debian.org/projects/perkamon/" \
 	| grep "man-pages-fr" --color=never | tail -n1 | awk '{ print $2 }' | cut -d "-" -f1)
