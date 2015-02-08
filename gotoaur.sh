@@ -48,6 +48,7 @@ for pkg in $@; do
 		lib32-libkqueue)			upload lib;;
 		lib32-libpthread_workqueue-git)		upload lib;;
 		libdispatch-clang-git)			upload lib;;
+		libreoffice-faenza-mod)			upload office;;
 		man-pages-fr)				upload system;;
 		manpages-fr-extra)			upload system;;
 		memtest86-efi)				upload system;;

@@ -48,6 +48,11 @@ newver=$(elinks -dump -no-references "https://github.com/mheily/libkqueue/tags" 
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver lib32-libkqueue $newver
 
+# LibreOffice-Faenza-Mod
+newver=$(elinks -dump -no-references "http://gnome-look.org/content/show.php/Faenza+Icons++for+LibreOffice++4.0.0?content=157970" \
+	| grep "Wallpapers" --color=never | awk '{ print $2 }' | tr -dc '[[:print:]]')
+showver libreoffice-faenza-mod $newver
+
 # Man-Pages-FR
 newver=$(elinks -dump -no-references "https://alioth.debian.org/projects/perkamon/" \
 	| grep "man-pages-fr" --color=never | tail -n1 | awk '{ print $2 }' | cut -d "-" -f1)
