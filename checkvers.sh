@@ -39,8 +39,8 @@ newver=$(elinks -dump -no-references "https://github.com/X0rg/dmg2dir/tags" | gr
 showver dmg2dir $newver
 	
 # FrozenWay
-newver=$(elinks -dump -no-references "http://www.frozenway.com/index.php?module=download" \
-	| grep "]FrozenWay" --color=never | awk '{ print $2 }' | head -n1)
+newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
+	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
 showver frozenway $newver
 
 # Lib32-LibKqueue
