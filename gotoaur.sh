@@ -52,7 +52,6 @@ for pkg in $@; do
 		man-pages-fr)				upload system;;
 		manpages-fr-extra)			upload system;;
 		memtest86-efi)				upload system;;
-		memtest86-efi-beta)			upload system;;
 		python2-mmkeys)				upload modules;;
 		psensor)				upload system;;
 		*)	echo -e "Wrong package name.\n" > /dev/stderr ; exit 1;;

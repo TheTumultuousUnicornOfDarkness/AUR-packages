@@ -68,12 +68,6 @@ newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | g
 	grep "Free Edition" --color=never | awk '{ print $2 }' | cut -d "V" -f2)
 showver memtest86-efi $newver
 
-# MemTest86 BETA
-www=$(elinks -dump -no-references "http://www.memtest86.com/downloads/beta/?C=M;O=D")
-newver=$(echo $www | grep "GZIP compressed docume" --color=never | grep "iso-" --color=never \
-	| awk '{ print $2 }' | cut -d "]" -f2 | cut -c15-19 | head -n1)
-showver memtest86-efi-beta $newver
-
 # Python2-MMKeys
 www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
 	| grep "sonata" --color=never | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" --color=never | head -n1)
