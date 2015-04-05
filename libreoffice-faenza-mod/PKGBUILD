@@ -3,8 +3,8 @@
 # Contributor: Pierrick BRUN <pierrick.brun gmail.com>
 
 pkgname=libreoffice-faenza-mod
-pkgver=0.4.1
-pkgrel=3
+pkgver=0.4.2
+pkgrel=1
 pkgdesc="An icons pack for LibreOffice, inspired by Faenza icons"
 arch=('any')
 url="http://gnome-look.org/content/show.php/Faenza+Icons++for+LibreOffice++4.0.0?content=157970"
@@ -12,10 +12,22 @@ license=('GPL')
 depends=('libreoffice')
 conflicts=('libreoffice-flat-icon-set')
 install=$pkgname.install
-source=("images_faenza_$pkgver.zip::https://github.com/X0rg/AUR-PKGBUILD/blob/master/libreoffice-faenza-mod/images_faenza_0.4.1.zip?raw=true")
-md5sums=('8eaec4813175aac28e0bdc323a412f35')
+source=("images_faenza_$pkgver.zip::https://github.com/X0rg/AUR-PKGBUILD/blob/master/$pkgname/images_faenza_$pkgver.zip?raw=true")
+md5sums=('f9f2a9c1b37e59db3be7b224dbdc4984')
+
+prepare() {
+	if [[ -z $LOVER ]]; then
+		msg2 "You can manually specify LibreOffice version with environnement variable 'LOVER' if it fails."
+	fi
+}
 
 package() {
-	install -Dm0644 "$srcdir/LibreOffice Pack Icons-$pkgver/LibreOffice"*"/Faenza LibreOffice"*"/images_crystal.zip" \
+	[[ -z $LOVER ]] && LOVER=$(pacman -Qq libreoffice-still) && [[ -n $LOVER ]] && LOVER="LibreOffice  4.3.0"
+	[[ -z $LOVER ]] && LOVER=$(pacman -Qq libreoffice-fresh) && [[ -n $LOVER ]] && LOVER="LibreOffice 4.4.0"
+	[[ -z $LOVER ]] && error "LibreOffice version not found." && exit 1
+
+	install -Dm644 "$srcdir/LibreOffice Pack Icons-$pkgver/$LOVER/Faenza "*"/images_crystal.zip" \
 		"$pkgdir/usr/lib/libreoffice/share/config/images_faenza.zip"
+	install -Dm644 "$srcdir/LibreOffice Pack Icons-$pkgver/$LOVER/Faenza Dark  LibreOffice"*"/images_galaxy.zip" \
+		"$pkgdir/usr/lib/libreoffice/share/config/images_faenza_dark.zip"
 }
