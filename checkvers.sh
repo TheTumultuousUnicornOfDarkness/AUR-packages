@@ -37,7 +37,7 @@ showver cpu-x $newver
 newver=$(elinks -dump -no-references "https://github.com/X0rg/dmg2dir/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver dmg2dir $newver
-	
+
 # FrozenWay
 newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
 	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
@@ -50,7 +50,7 @@ showver lib32-libkqueue $newver
 
 # LibreOffice-Faenza-Mod
 newver=$(elinks -dump -no-references "http://gnome-look.org/content/show.php/Faenza+Icons++for+LibreOffice++4.0.0?content=157970" \
-	| grep "Wallpapers" --color=never | awk '{ print $2 }' | tr -dc '[[:print:]]')
+	| grep "Wallpapers" --color=never | awk '{ print $2 }' | tr -dc '[[:print:]]' | cut -d "[" -f1)
 showver libreoffice-faenza-mod $newver
 
 # Man-Pages-FR
