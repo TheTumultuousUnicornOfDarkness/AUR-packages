@@ -1,0 +1,42 @@
+[submodule "cpu-x"]
+	path = cpu-x
+	url = ssh+git://aur@aur4.archlinux.org/cpu-x.git/
+[submodule "darling-git"]
+	path = darling-git
+	url = ssh+git://aur@aur4.archlinux.org/darling-git.git/
+[submodule "dmg2dir"]
+	path = dmg2dir
+	url = ssh+git://aur@aur4.archlinux.org/dmg2dir.git/
+[submodule "frozenway"]
+	path = frozenway
+	url = ssh+git://aur@aur4.archlinux.org/frozenway.git/
+[submodule "lib32-libdispatch-clang-git"]
+	path = lib32-libdispatch-clang-git
+	url = ssh+git://aur@aur4.archlinux.org/lib32-libdispatch-clang-git.git/
+[submodule "lib32-libkqueue"]
+	path = lib32-libkqueue
+	url = ssh+git://aur@aur4.archlinux.org/lib32-libkqueue.git/
+[submodule "lib32-libpthread_workqueue-git"]
+	path = lib32-libpthread_workqueue-git
+	url = ssh+git://aur@aur4.archlinux.org/lib32-libpthread_workqueue-git.git/
+[submodule "libdispatch-clang-git"]
+	path = libdispatch-clang-git
+	url = ssh+git://aur@aur4.archlinux.org/libdispatch-clang-git.git/
+[submodule "libreoffice-faenza-mod"]
+	path = libreoffice-faenza-mod
+	url = ssh+git://aur@aur4.archlinux.org/libreoffice-faenza-mod.git/
+[submodule "man-pages-fr"]
+	path = man-pages-fr
+	url = ssh+git://aur@aur4.archlinux.org/man-pages-fr.git/
+[submodule "manpages-fr-extra"]
+	path = manpages-fr-extra
+	url = ssh+git://aur@aur4.archlinux.org/manpages-fr-extra.git/
+[submodule "memtest86-efi"]
+	path = memtest86-efi
+	url = ssh+git://aur@aur4.archlinux.org/memtest86-efi.git/
+[submodule "psensor"]
+	path = psensor
+	url = ssh+git://aur@aur4.archlinux.org/psensor.git/
+[submodule "python2-mmkeys"]
+	path = python2-mmkeys
+	url = ssh+git://aur@aur4.archlinux.org/python2-mmkeys.git/

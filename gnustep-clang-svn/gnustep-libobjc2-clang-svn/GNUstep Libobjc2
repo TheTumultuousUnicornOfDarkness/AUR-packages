@@ -1,8 +1,0 @@
-Instructions for building, extract from : http://darling.dolezel.info/en/Build/Ubuntu
-
-svn co http://svn.gna.org/svn/gnustep/libs/libobjc2/trunk/ gnustep-libobjc2
-cd gnustep-libobjc2
-OBJCFLAGS=-fblocks CC=clang CXX=clang++ cmake .
-rm GNUmakefile
-make
-sudo make install
