@@ -40,3 +40,6 @@
 [submodule "python2-mmkeys"]
 	path = python2-mmkeys
 	url = ssh+git://aur@aur4.archlinux.org/python2-mmkeys.git/
+[submodule "libcpuid-git"]
+	path = libcpuid-git
+	url = ssh+git://aur@aur4.archlinux.org/libcpuid-git.git/
