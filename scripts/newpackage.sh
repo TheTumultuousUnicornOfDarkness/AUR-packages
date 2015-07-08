@@ -8,7 +8,7 @@
 
 [[ $# == 0 ]] && echo -e "Package name is missing.\n" && exit 1
 
-cd $(find . -name $1)
+cd $(find `git rev-parse --show-toplevel` -name $1)
 
 if [[ ! -f .gitignore ]]; then
 	echo -e '*\n!.gitignore\n!.SRCINFO' > .gitignore
