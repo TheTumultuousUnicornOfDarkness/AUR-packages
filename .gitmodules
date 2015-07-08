@@ -43,3 +43,6 @@
 [submodule "libcpuid-git"]
 	path = libcpuid-git
 	url = ssh+git://aur@aur4.archlinux.org/libcpuid-git.git/
+[submodule "exaile"]
+	path = exaile
+	url = ssh+git://aur@aur4.archlinux.org/exaile.git/
