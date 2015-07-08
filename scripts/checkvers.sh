@@ -13,7 +13,7 @@ ce="\033[0m"
 cpt=0
 [[ $1 == "-q" ]] && quiet=1
 
-cd `dirname $0`
+cd `dirname $0`/..
 
 # Script output: start
 [[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
@@ -37,6 +37,17 @@ showver cpu-x $newver
 newver=$(elinks -dump -no-references "https://github.com/X0rg/dmg2dir/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver dmg2dir $newver
+
+# DMG2IMG
+newver=$(elinks -dump -no-references "http://vu1tur.eu.org/tools/" | grep "dmg2img" --color=never \
+	| grep "-" --color=never | awk '{ print $1 }' | cut -d "-" -f2 | cut -d ":" -f1 | head -n1)
+showver dmg2img $newver
+
+# Exaile
+www=$(elinks -dump -no-references "https://github.com/exaile/exaile/releases" | grep "exaile" --color=never \
+        | grep ".tar.gz" --color=never | cut -d "-" -f2 | head -n1)
+newver=${www%%".tar.gz"*}
+showver exaile $newver
 
 # FrozenWay
 newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
