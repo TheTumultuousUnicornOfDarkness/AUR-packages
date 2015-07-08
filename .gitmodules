@@ -46,3 +46,6 @@
 [submodule "exaile"]
 	path = exaile
 	url = ssh+git://aur@aur4.archlinux.org/exaile.git/
+[submodule "dmg2img"]
+	path = dmg2img
+	url = ssh+git://aur@aur4.archlinux.org/dmg2img.git/
