@@ -1,6 +1,4 @@
 *
 !.gitignore
 !.SRCINFO
-!dmg2img-1.6.5-3-x86_64.pkg.tar.xz
-!dmg2img-1.6.5.tar.gz
 !PKGBUILD
