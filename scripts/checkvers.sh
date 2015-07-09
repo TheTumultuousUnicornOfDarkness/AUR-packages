@@ -59,6 +59,11 @@ newver=$(elinks -dump -no-references "https://github.com/mheily/libkqueue/tags" 
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver lib32-libkqueue $newver
 
+# LibAOSD
+newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases" | grep "…" --color=never \
+        | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
+showver libaosd $newver
+
 # LibreOffice-Faenza-Mod
 newver=$(elinks -dump -no-references "http://gnome-look.org/content/show.php/Faenza+Icons++for+LibreOffice++4.0.0?content=157970" \
 	| grep "Wallpapers" --color=never | awk '{ print $2 }' | tr -dc '[[:print:]]' | cut -d "[" -f1)
@@ -85,11 +90,22 @@ www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlio
 newver=${www%%".tar.gz"}
 showver python2-mmkeys $newver
 
+# RadeonTop
+newver=$(elinks -dump -no-references "https://github.com/clbr/radeontop/releases" | grep "]v" --color=never \
+	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
+showver radeontop $newver
+
 # Psensor
 www=$(elinks -dump -no-references "http://wpitchoune.net/psensor/files/")
 www=$(echo $www | awk '{ print $2 }' | grep "psensor-" --color=never | cut -c14- | tail -n1)
 newver=${www%%".tar.gz.asc"*}
 showver psensor $newver
+
+# Systemd-NumlockOnTty
+www=$(elinks -dump -no-references "http://avalon.ybalrid.info/aur/" | grep ".tar.gz" --color=never \
+	| cut -d "-" -f2 | awk '{ print $1 }')
+newver=${www%%".tar.gz"}
+showver systemd-numlockontty $newver
 
 
 # Script output: end
