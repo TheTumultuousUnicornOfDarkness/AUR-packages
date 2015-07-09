@@ -49,3 +49,15 @@
 [submodule "dmg2img"]
 	path = dmg2img
 	url = ssh+git://aur@aur4.archlinux.org/dmg2img.git/
+[submodule "libaosd"]
+	path = libaosd
+	url = ssh+git://aur@aur4.archlinux.org/libaosd.git/
+[submodule "radeontop"]
+	path = radeontop
+	url = ssh+git://aur@aur4.archlinux.org/radeontop.git/
+[submodule "systemd-numlockontty"]
+	path = systemd-numlockontty
+	url = ssh+git://aur@aur4.archlinux.org/systemd-numlockontty.git/
+[submodule "radeontop-git"]
+	path = radeontop-git
+	url = ssh+git://aur@aur4.archlinux.org/radeontop-git.git/
