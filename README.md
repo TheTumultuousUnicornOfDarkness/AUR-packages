@@ -6,6 +6,6 @@ A PKGBUILD allows to build a package designed for Arch Linux. Read page [PKGBUIL
 
 This repository is compatible with **AUR 4**.
 
-All AUR packages can be found on AURWEB: https://aur4.archlinux.org/
+All AUR packages can be found on AURWEB: https://aur.archlinux.org/
 
-Packages on this repository can be found here: https://aur4.archlinux.org/packages/?SeB=m&K=Xorg
+Packages on this repository can be found here: https://aur.archlinux.org/packages/?SeB=m&K=Xorg
