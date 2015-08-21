@@ -50,10 +50,6 @@
 	path = libdispatch-clang-git
 	url = ssh+git://aur@aur.archlinux.org/libdispatch-clang-git.git/
 	branch = master
-[submodule "libreoffice-faenza-mod"]
-	path = libreoffice-faenza-mod
-	url = ssh+git://aur@aur.archlinux.org/libreoffice-faenza-mod.git/
-	branch = master
 [submodule "man-pages-fr"]
 	path = man-pages-fr
 	url = ssh+git://aur@aur.archlinux.org/man-pages-fr.git/

@@ -64,11 +64,6 @@ newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases
         | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
 showver libaosd $newver
 
-# LibreOffice-Faenza-Mod
-newver=$(elinks -dump -no-references "http://gnome-look.org/content/show.php/Faenza+Icons++for+LibreOffice++4.0.0?content=157970" \
-	| grep "Wallpapers" --color=never | awk '{ print $2 }' | tr -dc '[[:print:]]' | cut -d "[" -f1)
-showver libreoffice-faenza-mod $newver
-
 # Man-Pages-FR
 newver=$(elinks -dump -no-references "https://alioth.debian.org/projects/perkamon/" \
 	| grep "man-pages-fr" --color=never | tail -n1 | awk '{ print $2 }' | cut -d "-" -f1)
