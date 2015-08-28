@@ -14,5 +14,6 @@ unset GIT_WORK_TREE
 unset GIT_PREFIX
 
 cd ..
+[[ ! -d .git ]] && cd ..
 git add "$rep"
 git commit -m "$msg"
