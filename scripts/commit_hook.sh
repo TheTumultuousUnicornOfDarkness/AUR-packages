@@ -14,6 +14,6 @@ unset GIT_WORK_TREE
 unset GIT_PREFIX
 
 cd ..
-[[ ! -d .git ]] && cd ..
-git add "$rep"
+[[ ! -d .git ]] && pref="gnustep-clang-svn/" && cd ..
+git add "${pref}${rep}"
 git commit -m "$msg"
