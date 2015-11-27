@@ -1,6 +1,9 @@
 [submodule "cpu-x"]
 	path = cpu-x
 	url = ssh+git://aur@aur.archlinux.org/cpu-x.git
+[submodule "cpu-x-git"]
+	path = cpu-x-git
+	url = ssh+git://aur@aur.archlinux.org/cpu-x-git.git
 [submodule "darling-git"]
 	path = darling-git
 	url = ssh+git://aur@aur.archlinux.org/darling-git.git
