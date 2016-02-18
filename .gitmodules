@@ -19,39 +19,12 @@
 [submodule "frozenway"]
 	path = frozenway
 	url = ssh+git://aur@aur.archlinux.org/frozenway.git
-[submodule "gnustep-clang-svn/gnustep-base-clang-svn"]
-	path = gnustep-clang-svn/gnustep-base-clang-svn
-	url = ssh+git://aur@aur.archlinux.org/gnustep-base-clang-svn.git
-[submodule "gnustep-clang-svn/gnustep-corebase-clang-svn"]
-	path = gnustep-clang-svn/gnustep-corebase-clang-svn
-	url = ssh+git://aur@aur.archlinux.org/gnustep-corebase-clang-svn.git
-[submodule "gnustep-clang-svn/gnustep-gui-clang-svn"]
-	path = gnustep-clang-svn/gnustep-gui-clang-svn
-	url = ssh+git://aur@aur.archlinux.org/gnustep-gui-clang-svn.git
-[submodule "gnustep-clang-svn/gnustep-libobjc2-clang-svn"]
-	path = gnustep-clang-svn/gnustep-libobjc2-clang-svn
-	url = ssh+git://aur@aur.archlinux.org/gnustep-libobjc2-clang-svn.git
-[submodule "gnustep-clang-svn/gnustep-make-clang-svn"]
-	path = gnustep-clang-svn/gnustep-make-clang-svn
-	url = ssh+git://aur@aur.archlinux.org/gnustep-make-clang-svn.git
-[submodule "lib32-libdispatch-clang-git"]
-	path = lib32-libdispatch-clang-git
-	url = ssh+git://aur@aur.archlinux.org/lib32-libdispatch-clang-git.git
-[submodule "lib32-libkqueue"]
-	path = lib32-libkqueue
-	url = ssh+git://aur@aur.archlinux.org/lib32-libkqueue.git
-[submodule "lib32-libpthread_workqueue-git"]
-	path = lib32-libpthread_workqueue-git
-	url = ssh+git://aur@aur.archlinux.org/lib32-libpthread_workqueue-git.git
 [submodule "libaosd"]
 	path = libaosd
 	url = ssh+git://aur@aur.archlinux.org/libaosd.git
 [submodule "libcpuid-git"]
 	path = libcpuid-git
 	url = ssh+git://aur@aur.archlinux.org/libcpuid-git.git
-[submodule "libdispatch-clang-git"]
-	path = libdispatch-clang-git
-	url = ssh+git://aur@aur.archlinux.org/libdispatch-clang-git.git
 [submodule "man-pages-fr"]
 	path = man-pages-fr
 	url = ssh+git://aur@aur.archlinux.org/man-pages-fr.git
