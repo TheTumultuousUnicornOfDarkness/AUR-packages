@@ -54,11 +54,6 @@ newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download
 	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
 showver frozenway $newver
 
-# Lib32-LibKqueue
-newver=$(elinks -dump -no-references "https://github.com/mheily/libkqueue/tags" | grep "]v" --color=never \
-	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver lib32-libkqueue $newver
-
 # LibAOSD
 newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases" | grep "…" --color=never \
         | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
