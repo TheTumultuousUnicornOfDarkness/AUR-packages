@@ -49,3 +49,6 @@
 [submodule "systemd-numlockontty"]
 	path = systemd-numlockontty
 	url = ssh+git://aur@aur.archlinux.org/systemd-numlockontty.git
+[submodule "darling-mach-git"]
+	path = darling-mach-git
+	url = ssh+git://aur@aur.archlinux.org/darling-mach-git.git/
