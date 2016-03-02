@@ -22,7 +22,7 @@ mksrcinfo
 
 if [[ ! -d .git ]]; then
 	git init
-	git remote add origin ssh+git://aur@aur4.archlinux.org/$1.git/
+	git remote add origin ssh+git://aur@aur.archlinux.org/$1.git/
 	git add .gitignore
 	git add --all
 fi
@@ -31,4 +31,4 @@ git commit -am "Initial commit for $1"
 git push -u origin master
 
 cd ..
-git submodule add ssh+git://aur@aur4.archlinux.org/$1.git/
+git submodule add ssh+git://aur@aur.archlinux.org/$1.git/
