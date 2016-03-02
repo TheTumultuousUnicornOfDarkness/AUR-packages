@@ -9,6 +9,8 @@
 GIT_ROOT=$(git rev-parse --show-toplevel)
 PACKAGE=$(dirname `git log --pretty=format: --name-only -n1`)
 
+[[ ! -f "$GIT_ROOT/$PACKAGE/PKGBUILD" ]] && exit 0
+
 cd "$GIT_ROOT/$PACKAGE"
 
 if [[ $SUM != 0 ]]; then

@@ -11,6 +11,8 @@ PACKAGE=$(dirname `git log --pretty=format: --name-only -n1`)
 SHA_1=$(git rev-parse HEAD)
 TMP_DIR="/tmp/aur-repos"
 
+[[ ! -f "$GIT_ROOT/$PACKAGE/PKGBUILD" ]] && exit 0
+
 if [[ ! -d "$TMP_DIR/$PACKAGE" ]]; then
 	git clone ssh+git://aur@aur.archlinux.org/$PACKAGE.git "$TMP_DIR/$PACKAGE"
 fi
