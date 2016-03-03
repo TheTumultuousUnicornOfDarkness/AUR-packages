@@ -28,3 +28,7 @@ fi
 
 echo -e "\033[36mUpdate .SRCINFO file\033[0m"
 mksrcinfo
+
+unset GIT_DIR
+sed -i 's/linux-ck-sandybridge-headers/linux-headers/' .SRCINFO
+git add .SRCINFO PKGBUILD
