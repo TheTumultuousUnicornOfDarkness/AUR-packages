@@ -7,7 +7,7 @@
 ############################################################################
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
-PACKAGE=$(dirname `git log --pretty=format: --name-only -n1 | head -n1`)
+PACKAGE=$(dirname `git diff --cached --name-only --diff-filter=ACM`)
 
 [[ ! -f "$GIT_ROOT/$PACKAGE/PKGBUILD" ]] && exit 0
 
