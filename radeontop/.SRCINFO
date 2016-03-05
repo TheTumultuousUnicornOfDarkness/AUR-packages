@@ -1,0 +1,15 @@
+pkgbase = radeontop
+	pkgdesc = Radeon cards monitoring utility
+	pkgver = 0.9
+	pkgrel = 1
+	url = https://github.com/clbr/radeontop
+	arch = i686
+	arch = x86_64
+	license = GPL3
+	depends = ncurses
+	depends = libdrm
+	source = https://github.com/clbr/radeontop/archive/v0.9.tar.gz
+	sha256sums = e78a56d1222c8a45f08f09409f178ddda83461085b012e5ba54b716e6c8dd61d
+
+pkgname = radeontop
+
