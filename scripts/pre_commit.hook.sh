@@ -7,7 +7,7 @@
 ############################################################################
 
 GIT_ROOT=$(git rev-parse --show-toplevel)
-PACKAGE=$(dirname `git diff --cached --name-only --diff-filter=ACM`)
+PACKAGE=$(dirname `git diff --cached --name-only --diff-filter=ACM | head -n1`)
 
 [[ ! -f "$GIT_ROOT/$PACKAGE/PKGBUILD" ]] && exit 0
 
@@ -28,7 +28,4 @@ fi
 
 echo -e "\033[36mUpdate .SRCINFO file\033[0m"
 mksrcinfo
-
-unset GIT_DIR
 sed -i 's/linux-ck-sandybridge-headers/linux-headers/' .SRCINFO
-git add .SRCINFO PKGBUILD
