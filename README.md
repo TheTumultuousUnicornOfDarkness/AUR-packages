@@ -1,15 +1,13 @@
 PKGBUILDs
 ============
 
-A PKGBUILD allows to build a package designed for Arch Linux. Read page [PKGBUILD](https://wiki.archlinux.org/index.php/PKGBUILD) on Arch Wiki for more informations.
+A PKGBUILD is a shell script containing the build information required by Arch Linux packages (*.pkg.tar.xz*). More informations on [Arch Wiki (PKGBUILD)](https://wiki.archlinux.org/index.php/PKGBUILD).
 
 
 This repository is designed for **AUR 4**.
 
-All AUR packages can be found on AURWEB: https://aur.archlinux.org/
+AUR packages can be found on AURweb: https://aur.archlinux.org/
+Packages on this repository can be found here: https://aur.archlinux.org/packages/?SeB=m&K=Xorg
 
-These packages on this repository can be found here: https://aur.archlinux.org/packages/?SeB=m&K=Xorg
-
-This is a super-project, all directories refer to another Git repository.  
-`git clone --recursive git@github.com:X0rg/AUR-PKGBUILD.git` to clone all.  
-`git submodule foreach git pull origin master` to update all to latest version.
+Changes made in this repository are also made in `git://aur@aur.archlinux.org/<package>.git`.
+See `scripts` directory to see used hooks (*.hook.sh*).
