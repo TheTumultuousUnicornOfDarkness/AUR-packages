@@ -91,12 +91,6 @@ www=$(echo $www | awk '{ print $2 }' | grep "psensor-" --color=never | cut -c14-
 newver=${www%%".tar.gz.asc"*}
 showver psensor $newver
 
-# Systemd-NumlockOnTty
-www=$(elinks -dump -no-references "http://avalon.ybalrid.info/aur/" | grep ".tar.gz" --color=never \
-	| cut -d "-" -f2 | awk '{ print $1 }')
-newver=${www%%".tar.gz"}
-showver systemd-numlockontty $newver
-
 
 # Script output: end
 if [[ $quiet ]]; then
