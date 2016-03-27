@@ -32,6 +32,12 @@ git --git-dir="$GIT_ROOT/.git" \
 	format-patch -k -1 --stdout $SHA_1 | \
 	git am -3 -k
 
+if [[ -d "$PACKAGE" ]]; then
+	git mv "$PACKAGE"/* .
+	git commit --no-verify --amend --no-edit
+	rm -rf "$PACKAGE"
+fi
+
 cd "$GIT_ROOT/"
 export SKIP_POST=1
 git commit --no-verify --amend -m "$PACKAGE: $COMMIT_MSG"
