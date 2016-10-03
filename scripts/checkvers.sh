@@ -59,11 +59,6 @@ newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases
         | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
 showver libaosd $newver
 
-# Man-Pages-FR
-newver=$(elinks -dump -no-references "https://alioth.debian.org/projects/perkamon/" \
-	| grep "man-pages-fr" --color=never | tail -n1 | awk '{ print $2 }' | cut -d "-" -f1)
-showver man-pages-fr $newver
-
 # ManPages-FR-Extra
 newver=$(elinks -dump -no-references "http://anonscm.debian.org/cgit/pkg-manpages-fr/manpages-fr-extra.git/refs/tags" \
 	| grep "commit " --color=never | awk '{ print $1 }' | cut -d "]" -f2 | head -n1)
