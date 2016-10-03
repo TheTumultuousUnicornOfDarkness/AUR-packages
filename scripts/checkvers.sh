@@ -59,11 +59,6 @@ newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases
         | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
 showver libaosd $newver
 
-# ManPages-FR-Extra
-newver=$(elinks -dump -no-references "http://anonscm.debian.org/cgit/pkg-manpages-fr/manpages-fr-extra.git/refs/tags" \
-	| grep "commit " --color=never | awk '{ print $1 }' | cut -d "]" -f2 | head -n1)
-showver manpages-fr-extra $newver
-
 # MemTest86
 newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | grep "MemTest86 V" --color=never |
 	grep "Free Edition" --color=never | awk '{ print $2 }' | cut -d "V" -f2)
