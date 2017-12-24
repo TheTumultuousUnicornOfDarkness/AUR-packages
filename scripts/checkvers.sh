@@ -9,8 +9,10 @@
 # Global variables
 cr="\033[1;31m"
 cg="\033[1;32m"
+cy="\033[1;33m"
 ce="\033[0m"
 cpt=0
+ign=0
 [[ $1 == "-q" ]] && quiet=1
 
 cd `dirname $0`/..
@@ -19,10 +21,21 @@ cd `dirname $0`/..
 [[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
 
 showver() {
+	pkgname=$1
 	curver=$(grep "pkgver=" --color=never $1/PKGBUILD | cut -d "=" -f2)
-	col=$cr
-	[[ $curver == $2 ]] && col=$cg || cpt=$[ cpt + 1 ]
-	[[ ! $quiet ]] && printf "%35s: $col%8s$ce | $cg%8s$ce\n" $1 $curver $2
+	newver=$2
+	IGNORE=$3
+
+	if [[ $newver == $IGNORE ]]; then # When IGNORE is set
+		colpkgver=$cg
+		colprgver=$cy
+		((ign++))
+	else
+		colpkgver=$cr
+		colprgver=$cg
+		[[ $curver == $newver ]] && colpkgver=$cg || ((cpt++))
+	fi
+	[[ ! $quiet ]] && printf "%35s: $colpkgver%8s$ce | $colprgver%8s$ce\n" $pkgname $curver $newver
 }
 
 
@@ -31,7 +44,8 @@ showver() {
 # CPU-X
 newver=$(elinks -dump -no-references "https://github.com/X0rg/CPU-X/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver cpu-x $newver
+IGNORE="3.1.3.1"
+showver cpu-x $newver $IGNORE
 
 # DMG2DIR
 newver=$(elinks -dump -no-references "https://github.com/X0rg/dmg2dir/tags" | grep "]v" --color=never \
@@ -47,7 +61,8 @@ showver dmg2img $newver
 www=$(elinks -dump -no-references "https://github.com/exaile/exaile/releases" | grep "exaile" --color=never \
         | grep ".tar.gz" --color=never | cut -d "-" -f2 | head -n1)
 newver=${www%%".tar.gz"*}
-showver exaile $newver
+IGNORE="4.0.0beta1"
+showver exaile $newver $IGNORE
 
 # FrozenWay
 newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
@@ -92,5 +107,8 @@ if [[ $quiet ]]; then
 	echo -e "$cpt"
 else
 	[[ $cpt == 0 ]] && col=$cg || col=$cr
-	echo -e "\nOut-of-date packages : $col$cpt$ce"
+	printf "\n%-20s: $col%i$ce\n" "Out-of-date packages" $cpt
+
+	[[ $ign == 0 ]] && col=$cg || col=$cy
+	printf "%-20s: $col%i$ce\n" "Ignored packages" $ign
 fi
