@@ -22,7 +22,6 @@ git commit --no-verify --amend --no-edit
 unset SKIP_POST
 SHA_1=$(git rev-parse HEAD)
 
-
 if [[ ! -d "$TMP_DIR/$PACKAGE" ]]; then
 	git clone ssh+git://aur@aur.archlinux.org/$PACKAGE.git "$TMP_DIR/$PACKAGE"
 fi

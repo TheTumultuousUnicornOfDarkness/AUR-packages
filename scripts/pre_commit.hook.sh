@@ -18,7 +18,7 @@ if [[ $SUM != 0 ]]; then
 	echo -e "\033[36mUpdate sums\033[0m"
 	updpkgsums
 	ls -1 >> /tmp/fileslist
-	
+
 	to_delete=$(sort /tmp/fileslist | uniq -u)
 	if [[ -n $to_delete ]]; then
 		echo -e "\033[36mRemove temporary files\033[0m"
@@ -27,5 +27,4 @@ if [[ $SUM != 0 ]]; then
 fi
 
 echo -e "\033[36mUpdate .SRCINFO file\033[0m"
-mksrcinfo
-sed -i 's/linux-ck-sandybridge-headers/linux-headers/' .SRCINFO
+makepkg --printsrcinfo > .SRCINFO
