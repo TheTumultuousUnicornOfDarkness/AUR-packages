@@ -44,7 +44,6 @@ showver() {
 # CPU-X
 newver=$(elinks -dump -no-references "https://github.com/X0rg/CPU-X/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-IGNORE="3.1.3.1"
 showver cpu-x $newver $IGNORE
 
 # DMG2DIR
@@ -77,7 +76,8 @@ showver libaosd $newver
 # MemTest86
 newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | grep "MemTest86 V" --color=never |
 	grep "Free Edition" --color=never | awk '{ print $2 }' | cut -d "V" -f2)
-showver memtest86-efi $newver
+IGNORE="7.5"
+showver memtest86-efi $newver $IGNORE
 
 # Python2-MMKeys
 www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
