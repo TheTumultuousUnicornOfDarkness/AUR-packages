@@ -60,7 +60,7 @@ showver dmg2img $newver
 www=$(elinks -dump -no-references "https://github.com/exaile/exaile/releases" | grep "exaile" --color=never \
         | grep ".tar.gz" --color=never | cut -d "-" -f2 | head -n1)
 newver=${www%%".tar.gz"*}
-IGNORE="4.0.0beta1"
+IGNORE="4.0.0beta3"
 showver exaile $newver $IGNORE
 
 # FrozenWay
