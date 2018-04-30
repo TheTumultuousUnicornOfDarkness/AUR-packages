@@ -90,12 +90,6 @@ newver=$(elinks -dump -no-references "https://github.com/clbr/radeontop/releases
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
 showver radeontop $newver
 
-# Psensor
-www=$(elinks -dump -no-references "http://wpitchoune.net/psensor/files/")
-www=$(echo $www | awk '{ print $2 }' | grep "psensor-" --color=never | cut -c14- | tail -n1)
-newver=${www%%".tar.gz.asc"*}
-showver psensor $newver
-
 # Rhythmbox lLyrics
 newver=$(elinks -dump -no-references "https://github.com/dmo60/lLyrics/tags" | grep "]v" --color=never \
 	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
