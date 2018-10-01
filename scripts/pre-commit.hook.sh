@@ -20,14 +20,14 @@ for path in $(git diff --name-only --cached --diff-filter=AM); do
         cd ${path%PKGBUILD}
         ls -1 > /tmp/fileslist
         (updpkgsums && makepkg --printsrcinfo > .SRCINFO) || exit 1
-      
+
         ls -1 >> /tmp/fileslist
-        local todelete=$(sort /tmp/fileslist | uniq -u)
+        todelete=$(sort /tmp/fileslist | uniq -u)
 	    if [[ -n $todelete ]]; then
 		    echo -e "\e[01;32m *** Cleaning directory ***\e[00m"
 		    rm -v $todelete
 	    fi
 
-        git add ${path%PKGBUILD}/.SRCINFO
+        git add .SRCINFO
     fi
 done
