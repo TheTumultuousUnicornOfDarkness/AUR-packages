@@ -1,3 +1,0 @@
-post_install() {
-	echo -e "\033[1;34mInfo:\033[0m you need to configure \033[1m/etc/pacman.d/mirrorlist-rankmirrors.conf\033[0m file."
-}

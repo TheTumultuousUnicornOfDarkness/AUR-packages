@@ -1,108 +1,110 @@
-#!/bin/zsh
+#!/bin/bash
 
-############################################################################
-#			checkvers
+###############################################################################
+#                            checkvers
 #
-#	Automatically check for newer version of programs
-############################################################################
+# Automatically check for newer version of programs
+###############################################################################
+
+# Constants
+TOP_DIR=$(realpath "$(dirname "$0")/..")
+COLOR_RED="\033[1;31m"
+COLOR_GREEN="\033[1;32m"
+COLOR_YELLOW="\033[1;33m"
+COLOR_DEFAULT="\033[0m"
 
 # Global variables
-cr="\033[1;31m"
-cg="\033[1;32m"
-cy="\033[1;33m"
-ce="\033[0m"
 cpt=0
 ign=0
 [[ $1 == "-q" ]] && quiet=1
 
-cd `dirname $0`/..
 
-# Script output: start
-[[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
+# Functions
+
+gitHub_Api() {
+	local repo="$1"
+	curl --silent "https://api.github.com/repos/$repo/tags" | jq -r '.[0].name' | cut -d "v" -f2
+}
 
 showver() {
-	pkgname=$1
-	curver=$(grep "pkgver=" --color=never $1/PKGBUILD | cut -d "=" -f2)
-	newver=$2
-	IGNORE=$3
+	local pkgname="$1"
+	local curver
+	local newver="$2"
+	local ignver="$3"
 
-	if [[ $newver == $IGNORE ]]; then # When IGNORE is set
-		colpkgver=$cg
-		colprgver=$cy
+	curver=$(grep --color=never "pkgver=" "$1/PKGBUILD" | cut -d "=" -f2)
+	if [[ -z "$newver" ]]; then
+		colpkgver=$COLOR_YELLOW
+		colprgver=$COLOR_RED
+		newver="unknown"
+		((cpt++))
+	elif [[ "$newver" == "$ignver" ]]; then # When ignver is set
+		colpkgver=$COLOR_GREEN
+		colprgver=$COLOR_YELLOW
 		((ign++))
+	elif [[ "$curver" == "$newver" ]]; then
+		colpkgver=$COLOR_GREEN
+		colprgver=$COLOR_GREEN
 	else
-		colpkgver=$cr
-		colprgver=$cg
-		[[ $curver == $newver ]] && colpkgver=$cg || ((cpt++))
+		colpkgver=$COLOR_RED
+		colprgver=$COLOR_GREEN
+		((cpt++))
 	fi
-	[[ ! $quiet ]] && printf "%35s: $colpkgver%8s$ce | $colprgver%8s$ce\n" $pkgname $curver $newver
+	[[ ! $quiet ]] && printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$curver" "$newver"
 }
 
 
-# Check versions
+# Main
+
+cd "$TOP_DIR" || exit 255
+[[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
 
 # CPU-X
-newver=$(elinks -dump -no-references "https://github.com/X0rg/CPU-X/tags" | grep "]v" --color=never \
-	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver cpu-x $newver $IGNORE
+newver=$(gitHub_Api X0rg/CPU-X)
+showver "cpu-x" "$newver"
 
 # DMG2DIR
-newver=$(elinks -dump -no-references "https://github.com/X0rg/dmg2dir/tags" | grep "]v" --color=never \
-	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver dmg2dir $newver
+newver=$(gitHub_Api X0rg/dmg2dir)
+showver "dmg2dir" "$newver"
 
 # DMG2IMG
 newver=$(elinks -dump -no-references "http://vu1tur.eu.org/tools/" | grep "dmg2img" --color=never \
 	| grep "-" --color=never | awk '{ print $1 }' | cut -d "-" -f2 | cut -d ":" -f1 | head -n1)
-showver dmg2img $newver
+showver "dmg2img" "$newver"
 
 # Exaile
-www=$(elinks -dump -no-references "https://github.com/exaile/exaile/releases" | grep "exaile" --color=never \
-        | grep ".tar.gz" --color=never | cut -d "-" -f2 | head -n1)
-newver=${www%%".tar.gz"*}
-IGNORE="4.0.0rc3"
-showver exaile $newver $IGNORE
+newver=$(gitHub_Api exaile/exaile)
+showver "exaile" "$newver" "4.0.0-rc3"
 
 # FrozenWay
 newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
 	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
-showver frozenway $newver
+showver "frozenway" "$newver"
 
 # LibAOSD
-newver=$(elinks -dump -no-references "https://github.com/atheme/libaosd/releases" | grep "…" --color=never \
-        | cut -d "]" -f2 | cut -d " " -f1 | head -n1)
-showver libaosd $newver
+newver=$(gitHub_Api atheme-legacy/libaosd)
+showver "libaosd" "$newver"
 
 # MemTest86
-newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | grep "MemTest86 V" --color=never |
-	grep "Free Edition" --color=never | awk '{ print $2 }' | cut -d "V" -f2)
-IGNORE="7.5"
-showver memtest86-efi $newver $IGNORE
-
-# Python2-MMKeys
-www=$(elinks -dump -no-references "http://sourceforge.net/projects/sonata.berlios/files/" \
-	| grep "sonata" --color=never | awk '{ print $1 }' | cut -d "]" -f2 | cut -d "-" -f2 | grep ".tar.gz" --color=never | head -n1)
-newver=${www%%".tar.gz"}
-showver python2-mmkeys $newver
+newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | grep -E "MemTest86 v.* Free Edition Download" \
+	| cut -d "v" -f2 | cut -d " " -f1 | head -n1)
+showver "memtest86-efi" "$newver"
 
 # RadeonTop
-newver=$(elinks -dump -no-references "https://github.com/clbr/radeontop/releases" | grep "]v" --color=never \
-	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver radeontop $newver
+newver=$(gitHub_Api clbr/radeontop)
+showver "radeontop" "$newver"
 
 # Rhythmbox lLyrics
-newver=$(elinks -dump -no-references "https://github.com/dmo60/lLyrics/tags" | grep "]v" --color=never \
-	| awk '{ print $1 }' | cut -d "v" -f2 | head -n1)
-showver rhythmbox-llyrics $newver
+newver=$(gitHub_Api dmo60/lLyrics)
+showver "rhythmbox-llyrics" "$newver"
 
-
-# Script output: end
+# Summary
 if [[ $quiet ]]; then
 	echo -e "$cpt"
 else
-	[[ $cpt == 0 ]] && col=$cg || col=$cr
-	printf "\n%-20s: $col%i$ce\n" "Out-of-date packages" $cpt
+	[[ $cpt == 0 ]] && col=$COLOR_GREEN || col=$COLOR_RED
+	printf "\n%-20s: $col%i$COLOR_DEFAULT\n" "Out-of-date packages" $cpt
 
-	[[ $ign == 0 ]] && col=$cg || col=$cy
-	printf "%-20s: $col%i$ce\n" "Ignored packages" $ign
+	[[ $ign == 0 ]] && col=$COLOR_GREEN || col=$COLOR_YELLOW
+	printf "%-20s: $col%i$COLOR_DEFAULT\n" "Ignored packages" $ign
 fi

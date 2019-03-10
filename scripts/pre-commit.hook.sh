@@ -1,33 +1,42 @@
 #!/bin/bash
 
-# From default pre-commit.sample: warn about whitespace issues
-if git rev-parse --verify HEAD >/dev/null 2>&1; then
-	against=HEAD
-else
-	# Initial commit: diff against an empty tree object
-	against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
+###############################################################################
+#                            pre-commit hook
+#
+# Automatically update checksums and .SRCINFO on commit
+###############################################################################
+
+# Constants
+GIT_ROOT="$(git rev-parse --show-toplevel)"
+TMP_FILE="/tmp/fileslist"
+
+# Main
+cd "$GIT_ROOT" || exit 255
+if [[ ! -f PKGBUILD ]]; then
+	echo "\033[1;31mNo PKGBUILD found in $GIT_ROOT\033[0m"
+	exit 1
 fi
-git diff-index --check --cached $against -- 1>&2
-[[ $? != "0" ]] && echo -e "\e[01;31mThis commit contains whitespace issues!\e[0m"
 
+if [[ -z "$SKIPSUMS" ]]; then
+	ls -1 > "$TMP_FILE"
 
-# fix environment of githooks
-unset GIT_DIR
-# make sure .SRCINFO is up to date
-for path in $(git diff --name-only --cached --diff-filter=AM); do
-    if [[ "${path}" =~ .*/PKGBUILD$ ]]; then
-        echo -e "\e[01;32m *** Generating and adding .SRCINFO for ${path%/PKGBUILD} ***\e[00m" 
-        cd ${path%PKGBUILD}
-        ls -1 > /tmp/fileslist
-        (updpkgsums && makepkg --printsrcinfo > .SRCINFO) || exit 1
+	if ! updpkgsums; then
+		echo "\033[1;31mFailed to update checksums\033[0m"
+		exit 2
+	fi
 
-        ls -1 >> /tmp/fileslist
-        todelete=$(sort /tmp/fileslist | uniq -u)
-	    if [[ -n $todelete ]]; then
-		    echo -e "\e[01;32m *** Cleaning directory ***\e[00m"
-		    rm -v $todelete
-	    fi
+	if ! makepkg --printsrcinfo; then
+		echo "\033[1;31mFailed to generate .SCRINFO\033[0m"
+		exit 3
+	fi
 
-        git add .SRCINFO
-    fi
-done
+	# Remove downloaded files
+	ls -1 >> "$TMP_FILE"
+	todelete=$(sort "$TMP_FILE" | uniq -u)
+	if [[ -n "$todelete" ]]; then
+		rm -v "$todelete"
+	fi
+	rm "$TMP_FILE"
+fi
+
+git add PKGBUILD .SRCINFO
