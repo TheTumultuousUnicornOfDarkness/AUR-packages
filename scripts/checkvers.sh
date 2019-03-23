@@ -16,7 +16,8 @@ COLOR_DEFAULT="\033[0m"
 # Global variables
 cpt=0
 ign=0
-[[ $1 == "-q" ]] && quiet=1
+[[ "$1" == "-q" ]] && quiet=true || quiet=false
+[[ "$1" == "-c" ]] && checkupdates_fmt=true || checkupdates_fmt=false
 
 
 # Functions
@@ -31,33 +32,41 @@ showver() {
 	local curver
 	local newver="$2"
 	local ignver="$3"
-
 	curver=$(grep --color=never "pkgver=" "$1/PKGBUILD" | cut -d "=" -f2)
-	if [[ -z "$newver" ]]; then
-		colpkgver=$COLOR_YELLOW
-		colprgver=$COLOR_RED
-		newver="unknown"
-		((cpt++))
-	elif [[ "$newver" == "$ignver" ]]; then # When ignver is set
-		colpkgver=$COLOR_GREEN
-		colprgver=$COLOR_YELLOW
-		((ign++))
-	elif [[ "$curver" == "$newver" ]]; then
-		colpkgver=$COLOR_GREEN
-		colprgver=$COLOR_GREEN
-	else
-		colpkgver=$COLOR_RED
-		colprgver=$COLOR_GREEN
-		((cpt++))
+
+	if $checkupdates_fmt; then
+		if [[ "$newver" != "$ignver" ]] && [[ "$newver" != "$curver" ]]; then
+			echo "$pkgname $curver -> $newver"
+		fi
+	elif ! $quiet; then
+		if [[ -z "$newver" ]]; then
+			colpkgver=$COLOR_YELLOW
+			colprgver=$COLOR_RED
+			newver="unknown"
+			((cpt++))
+		elif [[ "$newver" == "$ignver" ]]; then # When ignver is set
+			colpkgver=$COLOR_GREEN
+			colprgver=$COLOR_YELLOW
+			((ign++))
+		elif [[ "$curver" == "$newver" ]]; then
+			colpkgver=$COLOR_GREEN
+			colprgver=$COLOR_GREEN
+		else
+			colpkgver=$COLOR_RED
+			colprgver=$COLOR_GREEN
+			((cpt++))
+		fi
+		printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$curver" "$newver"
 	fi
-	[[ ! $quiet ]] && printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$curver" "$newver"
 }
 
 
 # Main
 
 cd "$TOP_DIR" || exit 255
-[[ ! $quiet ]] && printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
+if ! $quiet && ! $checkupdates_fmt; then
+	printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
+fi
 
 # CPU-X
 newver=$(gitHub_Api X0rg/CPU-X)
@@ -99,8 +108,10 @@ newver=$(gitHub_Api dmo60/lLyrics)
 showver "rhythmbox-llyrics" "$newver"
 
 # Summary
-if [[ $quiet ]]; then
+if $quiet; then
 	echo -e "$cpt"
+elif $checkupdates_fmt; then
+	exit 0
 else
 	[[ $cpt == 0 ]] && col=$COLOR_GREEN || col=$COLOR_RED
 	printf "\n%-20s: $col%i$COLOR_DEFAULT\n" "Out-of-date packages" $cpt
