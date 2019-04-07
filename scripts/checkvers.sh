@@ -76,11 +76,6 @@ showver "cpu-x" "$newver"
 newver=$(gitHub_Api X0rg/dmg2dir)
 showver "dmg2dir" "$newver"
 
-# DMG2IMG
-newver=$(elinks -dump -no-references "http://vu1tur.eu.org/tools/" | grep "dmg2img" --color=never \
-	| grep "-" --color=never | awk '{ print $1 }' | cut -d "-" -f2 | cut -d ":" -f1 | head -n1)
-showver "dmg2img" "$newver"
-
 # Exaile
 newver=$(gitHub_Api exaile/exaile)
 showver "exaile" "$newver" "4.0.0-rc3"
