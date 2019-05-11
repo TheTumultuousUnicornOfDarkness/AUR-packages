@@ -78,7 +78,7 @@ showver "dmg2dir" "$newver"
 
 # Exaile
 newver=$(gitHub_Api exaile/exaile)
-showver "exaile" "$newver" "4.0.0-rc3"
+showver "exaile" "$newver" "4.0.0-rc4"
 
 # FrozenWay
 newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
