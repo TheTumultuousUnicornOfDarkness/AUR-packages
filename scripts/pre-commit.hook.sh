@@ -25,7 +25,7 @@ if [[ -z "$SKIPSUMS" ]]; then
 		exit 2
 	fi
 
-	if ! makepkg --printsrcinfo; then
+	if ! makepkg --printsrcinfo > .SRCINFO; then
 		echo "\033[1;31mFailed to generate .SCRINFO\033[0m"
 		exit 3
 	fi
