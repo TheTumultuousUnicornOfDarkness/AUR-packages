@@ -12,6 +12,7 @@ COLOR_RED="\033[1;31m"
 COLOR_GREEN="\033[1;32m"
 COLOR_YELLOW="\033[1;33m"
 COLOR_DEFAULT="\033[0m"
+WWW="elinks -dump -no-references -no-home -verbose 0"
 
 # Global variables
 cpt=0
@@ -34,6 +35,10 @@ showver() {
 	local ignver="$3"
 	curver=$(grep --color=never "pkgver=" "$1/PKGBUILD" | cut -d "=" -f2)
 
+	if [[ -z "$newver" ]]; then
+		newver="unknown"
+	fi
+
 	if $checkupdates_fmt; then
 		if [[ "$newver" != "$ignver" ]] && [[ "$newver" != "$curver" ]]; then
 			echo "$pkgname $curver -> $newver"
@@ -42,7 +47,6 @@ showver() {
 		if [[ -z "$newver" ]]; then
 			colpkgver=$COLOR_YELLOW
 			colprgver=$COLOR_RED
-			newver="unknown"
 			((cpt++))
 		elif [[ "$newver" == "$ignver" ]]; then # When ignver is set
 			colpkgver=$COLOR_GREEN
@@ -78,10 +82,10 @@ showver "dmg2dir" "$newver"
 
 # Exaile
 newver=$(gitHub_Api exaile/exaile)
-showver "exaile" "$newver" "4.0.0-rc5"
+showver "exaile" "$newver"
 
 # FrozenWay
-newver=$(elinks -dump -no-references "http://www.frozendo.com/frozenway/download" \
+newver=$($WWW "http://www.frozendo.com/frozenway/download" 2> /dev/null \
 	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
 showver "frozenway" "$newver"
 
@@ -90,8 +94,8 @@ newver=$(gitHub_Api atheme-legacy/libaosd)
 showver "libaosd" "$newver"
 
 # MemTest86
-newver=$(elinks -dump -no-references "http://www.memtest86.com/download.htm" | grep -E "MemTest86 v.* Free Edition Download" \
-	| cut -d "v" -f2 | cut -d " " -f1 | head -n1)
+newver=$($WWW "http://www.memtest86.com/download.htm" 2> /dev/null \
+	| grep -E "MemTest86 v.* Free Edition Download" | cut -d "v" -f2 | cut -d " " -f1 | head -n1)
 showver "memtest86-efi" "$newver"
 
 # RadeonTop
