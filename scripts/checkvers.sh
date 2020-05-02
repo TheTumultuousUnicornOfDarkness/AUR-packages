@@ -82,7 +82,7 @@ showver "dmg2dir" "$newver"
 
 # Exaile
 newver=$(gitHub_Api exaile/exaile)
-showver "exaile" "$newver"
+showver "exaile" "$newver" "4.1.0-alpha1"
 
 # FrozenWay
 newver=$($WWW "http://www.frozendo.com/frozenway/download" 2> /dev/null \
