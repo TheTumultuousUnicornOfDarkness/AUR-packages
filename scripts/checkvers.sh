@@ -86,7 +86,7 @@ showver "exaile" "$newver" "4.1.0-alpha1"
 
 # FrozenWay
 newver=$($WWW "http://www.frozendo.com/frozenway/download" 2> /dev/null \
-	| grep "Version" --color=never | awk '{ print $2 }' | tail -n1)
+	| grep -E "Version .* - GNU/Linux" --color=never | awk '{ print $2 }')
 showver "frozenway" "$newver"
 
 # LibAOSD
