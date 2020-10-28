@@ -121,8 +121,8 @@ elif $checkupdates_fmt; then
 	exit 0
 else
 	[[ $cpt == 0 ]] && col=$COLOR_GREEN || col=$COLOR_RED
-	printf "\n%-20s: $col%i$COLOR_DEFAULT\n" "Out-of-date packages" $cpt
+	printf "\n%-20s: $col%i$COLOR_DEFAULT\n" "Out-of-date packages" "$cpt"
 
 	[[ $ign == 0 ]] && col=$COLOR_GREEN || col=$COLOR_YELLOW
-	printf "%-20s: $col%i$COLOR_DEFAULT\n" "Ignored packages" $ign
+	printf "%-20s: $col%i$COLOR_DEFAULT\n" "Ignored packages" "$ign"
 fi
