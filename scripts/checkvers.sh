@@ -30,18 +30,26 @@ gitHub_Api() {
 
 showver() {
 	local pkgname="$1"
-	local curver
 	local newver="$2"
 	local ignver="$3"
-	curver=$(grep --color=never "pkgver=" "$1/PKGBUILD" | cut -d "=" -f2)
+
+	if [[ -f "$1/PKGBUILD" ]]; then
+		source "$1/PKGBUILD"
+	else
+		if ! $quiet; then
+			printf "$COLOR_RED%35s: PKGBUILD not found$COLOR_DEFAULT\n" "$pkgname"
+		fi
+		((ign++))
+		return
+	fi
 
 	if [[ -z "$newver" ]]; then
 		newver="unknown"
 	fi
 
 	if $checkupdates_fmt; then
-		if [[ "$newver" != "$ignver" ]] && [[ "$newver" != "$curver" ]]; then
-			echo "$pkgname $curver -> $newver"
+		if [[ "$newver" != "$ignver" ]] && [[ "$newver" != "$pkgver" ]]; then
+			echo "$pkgname $pkgver -> $newver"
 		fi
 	elif ! $quiet; then
 		if [[ -z "$newver" ]]; then
@@ -52,7 +60,7 @@ showver() {
 			colpkgver=$COLOR_GREEN
 			colprgver=$COLOR_YELLOW
 			((ign++))
-		elif [[ "$curver" == "$newver" ]]; then
+		elif [[ "$pkgver" == "$newver" ]]; then
 			colpkgver=$COLOR_GREEN
 			colprgver=$COLOR_GREEN
 		else
@@ -60,7 +68,7 @@ showver() {
 			colprgver=$COLOR_GREEN
 			((cpt++))
 		fi
-		printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$curver" "$newver"
+		printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$pkgver" "$newver"
 	fi
 }
 
