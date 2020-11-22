@@ -13,6 +13,7 @@ COLOR_GREEN="\033[1;32m"
 COLOR_YELLOW="\033[1;33m"
 COLOR_DEFAULT="\033[0m"
 WWW="elinks -dump -no-references -no-home -verbose 0"
+GITHUB_TOKEN="de1080b6918446ba406f3d1745a8face925f6584"
 
 # Global variables
 cpt=0
@@ -25,7 +26,7 @@ ign=0
 
 gitHub_Api() {
 	local repo="$1"
-	curl --silent "https://api.github.com/repos/$repo/tags" | jq -r '.[0].name' | cut -d "v" -f2
+	curl --silent --user "$GITHUB_TOKEN:x-oauth-basic" "https://api.github.com/repos/$repo/tags" | jq -r '.[] | select(.name|test("[0-9].[0-9]")) | .name' | head -n1 | cut -d "v" -f2
 }
 
 showver() {
@@ -33,6 +34,7 @@ showver() {
 	local newver="$2"
 	local ignver="$3"
 
+	unset pkgver _pkgver
 	if [[ -f "$1/PKGBUILD" ]]; then
 		source "$1/PKGBUILD"
 	else
@@ -45,6 +47,10 @@ showver() {
 
 	if [[ -z "$newver" ]]; then
 		newver="unknown"
+	fi
+
+	if [[ -n "$_pkgver" ]]; then
+		pkgver="$_pkgver"
 	fi
 
 	if $checkupdates_fmt; then
@@ -68,7 +74,7 @@ showver() {
 			colprgver=$COLOR_GREEN
 			((cpt++))
 		fi
-		printf "%35s: $colpkgver%8s$COLOR_DEFAULT | $colprgver%8s$COLOR_DEFAULT\n" "$pkgname" "$pkgver" "$newver"
+		printf "%35s: $colpkgver%12s$COLOR_DEFAULT | $colprgver%12s$COLOR_DEFAULT\n" "$pkgname" "$pkgver" "$newver"
 	fi
 }
 
@@ -77,7 +83,7 @@ showver() {
 
 cd "$TOP_DIR" || exit 255
 if ! $quiet && ! $checkupdates_fmt; then
-	printf "%36s %8s   %8s\n" "Package" "PkgVer" "PrgVer"
+	printf "%36s %12s   %12s\n" "Package" "PkgVer" "PrgVer"
 fi
 
 # CPU-X
@@ -90,7 +96,7 @@ showver "dmg2dir" "$newver"
 
 # Exaile
 newver=$(gitHub_Api exaile/exaile)
-showver "exaile" "$newver" "4.1.0-alpha1"
+showver "exaile" "$newver"
 
 # FrozenWay
 newver=$($WWW "http://www.frozendo.com/frozenway/download" 2> /dev/null \
