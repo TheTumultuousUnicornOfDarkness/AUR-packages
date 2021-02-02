@@ -13,7 +13,6 @@ COLOR_GREEN="\033[1;32m"
 COLOR_YELLOW="\033[1;33m"
 COLOR_DEFAULT="\033[0m"
 WWW="elinks -dump -no-references -no-home -verbose 0"
-GITHUB_TOKEN="de1080b6918446ba406f3d1745a8face925f6584"
 
 # Global variables
 cpt=0
