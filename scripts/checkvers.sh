@@ -112,10 +112,6 @@ newver=$($WWW "https://www.memtest86.com/whats-new.html" 2> /dev/null \
 	| grep -E "Version [1-9]\.[1-9]" | awk 'NR==1{print $2}')
 showver "memtest86-efi" "$newver"
 
-# RadeonTop
-newver=$(gitHub_Api clbr/radeontop)
-showver "radeontop" "$newver"
-
 # Rhythmbox lLyrics
 newver=$(gitHub_Api dmo60/lLyrics)
 showver "rhythmbox-llyrics" "$newver"
