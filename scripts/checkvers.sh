@@ -108,7 +108,8 @@ showver "libaosd" "$newver"
 
 # MemTest86
 newver=$($WWW "https://www.memtest86.com/whats-new.html" 2> /dev/null \
-	| grep -E "Version [1-9]\.[1-9]" | awk 'NR==1{print $2}')
+	| grep -E "Version [[:digit:]]\.[[:digit:]]" | awk 'NR==1{print $2" "$3" "$4 }')
+[[ "$newver" == *"Build"* ]] && newver="$(echo "$newver" | tr -d '() ' | tr '[:upper:]' '[:lower:]')"
 showver "memtest86-efi" "$newver"
 
 # Rhythmbox lLyrics
