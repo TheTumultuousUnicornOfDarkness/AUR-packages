@@ -57,6 +57,12 @@ github = "openSUSE/obs-service-recompress"
 use_latest_tag = true
 token = "@GITHUB_TOKEN@"
 
+[obs-service-set_version]
+source = "github"
+github = "openSUSE/obs-service-set_version"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
+
 [obs-service-tar_scm]
 source = "github"
 github = "openSUSE/obs-service-tar_scm"
