@@ -8,123 +8,95 @@
 
 # Constants
 TOP_DIR=$(realpath "$(dirname "$0")/..")
-COLOR_RED="\033[1;31m"
-COLOR_GREEN="\033[1;32m"
-COLOR_YELLOW="\033[1;33m"
-COLOR_DEFAULT="\033[0m"
-WWW="elinks -dump -no-references -no-home -verbose 0"
+CACHE_DIR="$HOME/.cache/nvchecker"
+CONF_FILE="/tmp/nvchecker_aur.toml"
 
-# Global variables
-cpt=0
-ign=0
-[[ "$1" == "-q" ]] && quiet=true || quiet=false
-[[ "$1" == "-c" ]] && checkupdates_fmt=true || checkupdates_fmt=false
+mkdir -p "$CACHE_DIR"
+cat > "$CONF_FILE" <<\EOF
+[__config__]
+oldver = "@CACHE_DIR@/old_ver_aur.json"
+newver = "@CACHE_DIR@/new_ver_aur.json"
 
+[cpu-x]
+source = "github"
+github = "X0rg/CPU-X"
+use_latest_release = true
+token = "@GITHUB_TOKEN@"
 
-# Functions
+[dmg2dir]
+source = "github"
+github = "X0rg/dmg2dir"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
 
-gitHub_Api() {
-	local repo="$1"
-	curl --silent --user "$GITHUB_TOKEN:x-oauth-basic" "https://api.github.com/repos/$repo/tags" | jq -r '.[] | select(.name|test("[0-9].[0-9]")) | .name' | head -n1 | cut -d "v" -f2
-}
+[frozenway]
+source = "regex"
+regex = "Version .* - GNU/Linux"
+url = "http://www.frozendo.com/frozenway/download"
 
-showver() {
-	local pkgname="$1"
-	local newver="$2"
-	local ignver="$3"
+[exaile]
+source = "github"
+github = "exaile/exaile"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
 
-	unset pkgver _pkgver
-	if [[ -f "$1/PKGBUILD" ]]; then
-		source "$1/PKGBUILD"
-	else
-		if ! $quiet; then
-			printf "$COLOR_RED%35s: PKGBUILD not found$COLOR_DEFAULT\n" "$pkgname"
-		fi
-		((ign++))
-		return
-	fi
+[libaosd]
+source = "github"
+github = "atheme-legacy/libaosd"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
 
-	if [[ -z "$newver" ]]; then
-		newver="unknown"
-	fi
+[memtest86-efi]
+source = "regex"
+regex = "Version [0-9]+\\.[0-9]+ (?:\\(Build [0-9]+\\))"
+url = "https://www.memtest86.com/whats-new.html"
 
-	if [[ -n "$_pkgver" ]]; then
-		pkgver="$_pkgver"
-	fi
+[obs-service-recompress]
+source = "github"
+github = "openSUSE/obs-service-recompress"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
 
-	if $checkupdates_fmt; then
-		if [[ "$newver" != "$ignver" ]] && [[ "$newver" != "$pkgver" ]]; then
-			echo "$pkgname $pkgver -> $newver"
-		fi
-	elif ! $quiet; then
-		if [[ -z "$newver" ]]; then
-			colpkgver=$COLOR_YELLOW
-			colprgver=$COLOR_RED
-			((cpt++))
-		elif [[ "$newver" == "$ignver" ]]; then # When ignver is set
-			colpkgver=$COLOR_GREEN
-			colprgver=$COLOR_YELLOW
-			((ign++))
-		elif [[ "$pkgver" == "$newver" ]]; then
-			colpkgver=$COLOR_GREEN
-			colprgver=$COLOR_GREEN
-		else
-			colpkgver=$COLOR_RED
-			colprgver=$COLOR_GREEN
-			((cpt++))
-		fi
-		printf "%35s: $colpkgver%12s$COLOR_DEFAULT | $colprgver%12s$COLOR_DEFAULT\n" "$pkgname" "$pkgver" "$newver"
-	fi
-}
+[obs-service-tar_scm]
+source = "github"
+github = "openSUSE/obs-service-tar_scm"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
 
-
-# Main
+[rhythmbox-llyrics]
+source = "github"
+github = "dmo60/lLyrics"
+use_latest_tag = true
+token = "@GITHUB_TOKEN@"
+EOF
+sed -i "s|@CACHE_DIR@|$CACHE_DIR|g"       "$CONF_FILE"
+sed -i "s|@GITHUB_TOKEN@|$GITHUB_TOKEN|g" "$CONF_FILE"
 
 cd "$TOP_DIR" || exit 255
-if ! $quiet && ! $checkupdates_fmt; then
-	printf "%36s %12s   %12s\n" "Package" "PkgVer" "PrgVer"
-fi
-
-# CPU-X
-newver=$(gitHub_Api X0rg/CPU-X)
-showver "cpu-x" "$newver"
-
-# DMG2DIR
-newver=$(gitHub_Api X0rg/dmg2dir)
-showver "dmg2dir" "$newver"
-
-# Exaile
-newver=$(gitHub_Api exaile/exaile)
-showver "exaile" "$newver"
-
-# FrozenWay
-newver=$($WWW "http://www.frozendo.com/frozenway/download" 2> /dev/null \
-	| grep -E "Version .* - GNU/Linux" --color=never | awk '{ print $2 }')
-showver "frozenway" "$newver"
-
-# LibAOSD
-newver=$(gitHub_Api atheme-legacy/libaosd)
-showver "libaosd" "$newver"
-
-# MemTest86
-newver=$($WWW "https://www.memtest86.com/whats-new.html" 2> /dev/null \
-	| grep -E "Version [[:digit:]]\.[[:digit:]]" | awk 'NR==1{print $2" "$3" "$4 }')
-[[ "$newver" == *"Build"* ]] && newver="$(echo "$newver" | tr -d '() ' | tr '[:upper:]' '[:lower:]')"
-showver "memtest86-efi" "$newver"
-
-# Rhythmbox lLyrics
-newver=$(gitHub_Api dmo60/lLyrics)
-showver "rhythmbox-llyrics" "$newver"
-
-# Summary
-if $quiet; then
-	echo -e "$cpt"
-elif $checkupdates_fmt; then
-	exit 0
-else
-	[[ $cpt == 0 ]] && col=$COLOR_GREEN || col=$COLOR_RED
-	printf "\n%-20s: $col%i$COLOR_DEFAULT\n" "Out-of-date packages" "$cpt"
-
-	[[ $ign == 0 ]] && col=$COLOR_GREEN || col=$COLOR_YELLOW
-	printf "%-20s: $col%i$COLOR_DEFAULT\n" "Ignored packages" "$ign"
-fi
+shopt -s nullglob
+for pkgbuild in */PKGBUILD; do
+	grep -q "pkgver()" "$pkgbuild" && continue
+	# shellcheck disable=SC1090
+	source "$pkgbuild"
+	# shellcheck disable=SC2154
+	case "$pkgname" in
+		cpu-x|dmg2dir|rhythmbox-llyrics)
+			ver="v$pkgver"
+			;;
+		frozenway)
+			ver="Version $pkgver - GNU/Linux"
+			;;
+		memtest86-efi)
+			if [[ "$pkgver" == *"build"* ]]; then
+				ver="Version $(echo "$pkgver" | awk -F 'build' '{print $1}') (Build $(echo "$pkgver" | awk -F 'build' '{print $2}'))"
+			else
+				ver="Version $pkgver"
+			fi
+			;;
+		*)
+			ver="$pkgver"
+	esac
+	nvtake -c "$CONF_FILE" "$pkgname=$ver"
+done
+nvchecker -c "$CONF_FILE" &> /dev/null
+nvcmp     -c "$CONF_FILE"
