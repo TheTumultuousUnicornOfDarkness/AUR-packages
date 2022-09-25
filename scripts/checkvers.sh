@@ -29,20 +29,9 @@ github = "X0rg/dmg2dir"
 use_latest_tag = true
 token = "@GITHUB_TOKEN@"
 
-[frozenway]
-source = "regex"
-regex = "Version .* - GNU/Linux"
-url = "http://www.frozendo.com/frozenway/download"
-
 [exaile]
 source = "github"
 github = "exaile/exaile"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
-
-[libaosd]
-source = "github"
-github = "atheme-legacy/libaosd"
 use_latest_tag = true
 token = "@GITHUB_TOKEN@"
 
@@ -50,24 +39,6 @@ token = "@GITHUB_TOKEN@"
 source = "regex"
 regex = "Version [0-9]+\\.[0-9]+ (?:\\(Build [0-9]+\\))"
 url = "https://www.memtest86.com/whats-new.html"
-
-[obs-service-recompress]
-source = "github"
-github = "openSUSE/obs-service-recompress"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
-
-[obs-service-set_version]
-source = "github"
-github = "openSUSE/obs-service-set_version"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
-
-[obs-service-tar_scm]
-source = "github"
-github = "openSUSE/obs-service-tar_scm"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
 
 [rhythmbox-llyrics]
 source = "github"
@@ -88,9 +59,6 @@ for pkgbuild in */PKGBUILD; do
 	case "$pkgname" in
 		cpu-x|dmg2dir|rhythmbox-llyrics)
 			ver="v$pkgver"
-			;;
-		frozenway)
-			ver="Version $pkgver - GNU/Linux"
 			;;
 		memtest86-efi)
 			if [[ "$pkgver" == *"build"* ]]; then
