@@ -19,13 +19,13 @@ newver = "@CACHE_DIR@/new_ver_aur.json"
 
 [cpu-x]
 source = "github"
-github = "X0rg/CPU-X"
+github = "TheTumultuousUnicornOfDarkness/CPU-X"
 use_latest_release = true
 token = "@GITHUB_TOKEN@"
 
 [dmg2dir]
 source = "github"
-github = "X0rg/dmg2dir"
+github = "TheTumultuousUnicornOfDarkness/dmg2dir"
 use_latest_tag = true
 token = "@GITHUB_TOKEN@"
 
