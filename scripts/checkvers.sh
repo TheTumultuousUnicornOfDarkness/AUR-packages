@@ -39,12 +39,6 @@ token = "@GITHUB_TOKEN@"
 source = "regex"
 regex = "Version [0-9]+\\.[0-9]+ (?:\\(Build [0-9]+\\))"
 url = "https://www.memtest86.com/whats-new.html"
-
-[rhythmbox-llyrics]
-source = "github"
-github = "dmo60/lLyrics"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
 EOF
 sed -i "s|@CACHE_DIR@|$CACHE_DIR|g"       "$CONF_FILE"
 sed -i "s|@GITHUB_TOKEN@|$GITHUB_TOKEN|g" "$CONF_FILE"
