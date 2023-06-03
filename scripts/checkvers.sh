@@ -17,6 +17,12 @@ cat > "$CONF_FILE" <<\EOF
 oldver = "@CACHE_DIR@/old_ver_aur.json"
 newver = "@CACHE_DIR@/new_ver_aur.json"
 
+[afancontrol]
+source = "github"
+github = "KostyaEsmukov/afancontrol"
+use_latest_release = true
+token = "@GITHUB_TOKEN@"
+
 [cpu-x]
 source = "github"
 github = "TheTumultuousUnicornOfDarkness/CPU-X"
