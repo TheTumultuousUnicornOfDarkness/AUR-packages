@@ -6,48 +6,43 @@
 # Automatically check for newer version of programs
 ###############################################################################
 
+set -euo pipefail
+
 # Constants
 TOP_DIR=$(realpath "$(dirname "$0")/..")
 CACHE_DIR="$HOME/.cache/nvchecker"
+CONF_DIR="$HOME/.config/nvchecker"
 CONF_FILE="/tmp/nvchecker_aur.toml"
 
 mkdir -p "$CACHE_DIR"
 cat > "$CONF_FILE" <<\EOF
 [__config__]
-oldver = "@CACHE_DIR@/old_ver_aur.json"
-newver = "@CACHE_DIR@/new_ver_aur.json"
+oldver  = "@CACHE_DIR@/old_ver_aur.json"
+newver  = "@CACHE_DIR@/new_ver_aur.json"
+keyfile = "@CONF_DIR@/keyfile.toml"
 
 [afancontrol]
 source = "github"
 github = "KostyaEsmukov/afancontrol"
 use_latest_release = true
-token = "@GITHUB_TOKEN@"
 
 [cpu-x]
 source = "github"
 github = "TheTumultuousUnicornOfDarkness/CPU-X"
 use_latest_release = true
-token = "@GITHUB_TOKEN@"
-
-[dmg2dir]
-source = "github"
-github = "TheTumultuousUnicornOfDarkness/dmg2dir"
-use_latest_tag = true
-token = "@GITHUB_TOKEN@"
 
 [exaile]
 source = "github"
 github = "exaile/exaile"
 use_latest_tag = true
-token = "@GITHUB_TOKEN@"
 
 [memtest86-efi]
 source = "regex"
 regex = "Version [0-9]+\\.[0-9]+ (?:\\(Build [0-9]+\\))"
 url = "https://www.memtest86.com/whats-new.html"
 EOF
-sed -i "s|@CACHE_DIR@|$CACHE_DIR|g"       "$CONF_FILE"
-sed -i "s|@GITHUB_TOKEN@|$GITHUB_TOKEN|g" "$CONF_FILE"
+sed -i "s|@CACHE_DIR@|$CACHE_DIR|g" "$CONF_FILE"
+sed -i "s|@CONF_DIR@|$CONF_DIR|g"   "$CONF_FILE"
 
 cd "$TOP_DIR" || exit 255
 shopt -s nullglob
@@ -72,5 +67,5 @@ for pkgbuild in */PKGBUILD; do
 	esac
 	nvtake -c "$CONF_FILE" "$pkgname=$ver"
 done
-nvchecker -c "$CONF_FILE" &> /dev/null
+nvchecker -c "$CONF_FILE"
 nvcmp     -c "$CONF_FILE"
