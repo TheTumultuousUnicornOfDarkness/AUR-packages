@@ -67,5 +67,5 @@ for pkgbuild in */PKGBUILD; do
 	esac
 	nvtake -c "$CONF_FILE" "$pkgname=$ver"
 done
-nvchecker -c "$CONF_FILE"
+nvchecker -c "$CONF_FILE" --logging error
 nvcmp     -c "$CONF_FILE"
