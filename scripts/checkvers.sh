@@ -34,7 +34,7 @@ use_latest_release = true
 [exaile]
 source = "github"
 github = "exaile/exaile"
-use_latest_tag = true
+use_latest_release = true
 
 [memtest86-efi]
 source = "regex"
