@@ -26,11 +26,6 @@ source = "github"
 github = "KostyaEsmukov/afancontrol"
 use_latest_release = true
 
-[cpu-x-opencl]
-source = "github"
-github = "TheTumultuousUnicornOfDarkness/CPU-X"
-use_latest_release = true
-
 [exaile]
 source = "github"
 github = "exaile/exaile"
@@ -52,7 +47,7 @@ for pkgbuild in */PKGBUILD; do
 	source "$pkgbuild"
 	# shellcheck disable=SC2154
 	case "$pkgname" in
-		cpu-x-opencl|dmg2dir|rhythmbox-llyrics)
+		dmg2dir|rhythmbox-llyrics)
 			ver="v$pkgver"
 			;;
 		memtest86-efi)
