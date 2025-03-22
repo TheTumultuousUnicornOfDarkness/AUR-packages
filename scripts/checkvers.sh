@@ -42,9 +42,6 @@ for pkgbuild in */PKGBUILD; do
 	source "$pkgbuild"
 	# shellcheck disable=SC2154
 	case "$pkgname" in
-		dmg2dir|rhythmbox-llyrics)
-			ver="v$pkgver"
-			;;
 		memtest86-efi)
 			if [[ "$pkgver" == *"build"* ]]; then
 				ver="Version $(echo "$pkgver" | awk -F 'build' '{print $1}') (Build $(echo "$pkgver" | awk -F 'build' '{print $2}'))"
