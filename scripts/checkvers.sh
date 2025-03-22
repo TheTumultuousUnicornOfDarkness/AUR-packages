@@ -21,11 +21,6 @@ oldver  = "@CACHE_DIR@/old_ver_aur.json"
 newver  = "@CACHE_DIR@/new_ver_aur.json"
 keyfile = "@CONF_DIR@/keyfile.toml"
 
-[afancontrol]
-source = "github"
-github = "KostyaEsmukov/afancontrol"
-use_latest_release = true
-
 [exaile]
 source = "github"
 github = "exaile/exaile"
